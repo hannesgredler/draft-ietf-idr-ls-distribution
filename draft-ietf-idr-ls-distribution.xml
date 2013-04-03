@@ -504,62 +504,58 @@
 
         <t>Each Node Descriptor and Link Descriptor consists of one or more TLVs
         described in the following sections. The sender of an UPDATE message
-        MUST order the TLVs within a Node, Link Descriptor or a Prefix Descriptor in
-        ascending order of TLV type.</t>
+        MUST order the TLVs within a Node, Link Descriptor or a Prefix
+        Descriptor in ascending order of TLV type.</t>
 
 
         <section title="Node Descriptors">
           <t>Each link gets anchored by at least a pair of router-IDs. Since
           there are many Router-IDs formats (32 Bit IPv4 router-ID, 48 Bit ISO
           System-ID and 128 Bit IPv6 router-ID) a link may be anchored by more
-          than one Router-ID pair. The set of Local and Remote Node
-          Descriptors describe which Protocols Router-IDs will be following to
-          "anchor" the link described by the "Link attribute TLVs". There must
-          be at least one "like" router-ID pair of a Local Node Descriptors
-          and a Remote Node Descriptors per-protocol. If a peer sends an
-          illegal combination in this respect, then this is handled as an NLRI
-          error, described in <xref target="RFC4760"></xref>.</t>
+          than one Router-ID pair. The set of Local and Remote Node Descriptors
+          describe which Protocols Router-IDs will be following to "anchor" the
+          link described by the "Link attribute TLVs". There must be at least
+          one "like" router-ID pair of a Local Node Descriptors and a Remote
+          Node Descriptors per-protocol. If a peer sends an illegal combination
+          in this respect, then this is handled as an NLRI error, described in
+          <xref target="RFC4760"></xref>.</t>
 
           <t>It is desirable that the Router-ID assignments inside the Node
           anchor are globally unique. However there may be router-ID spaces
           (e.g. ISO) where not even a global registry exists, or worse,
           Router-IDs have been allocated following private-IP <xref
-          target="RFC1918">RFC 1918</xref> allocation. We use AS Number
-	  and BGP Identifier in order to disambiguate the
-          Router-IDs, as described in <xref
-          target="gbl_uniqueness"></xref>.</t>
+          target="RFC1918">RFC 1918</xref> allocation. We use AS Number and BGP
+          Identifier in order to disambiguate the Router-IDs, as described in
+          <xref target="gbl_uniqueness"></xref>.</t>
 
           <section anchor="gbl_uniqueness"
                    title="Globally Unique Node/Link/Prefix Identifiers">
-            <t>One problem that needs to be addressed is the ability to
-            identify an IGP node globally (by "global", we mean within the
-            BGP-LS database collected by all BGP-LS speakers that talk to each
-            other). This can be expressed through the following two
-            requirements:</t>
+            <t>One problem that needs to be addressed is the ability to identify
+            an IGP node globally (by "global", we mean within the BGP-LS
+            database collected by all BGP-LS speakers that talk to each other).
+            This can be expressed through the following two requirements:</t>
 
-            <t>(A) The same node must not be represented by two keys
-            (otherwise one node will look like two nodes).</t>
+            <t>(A) The same node must not be represented by two keys (otherwise
+            one node will look like two nodes).</t>
 
             <t>(B) Two different nodes must not be represented by the same key
             (otherwise, two nodes will look like one node).</t>
 
-            <t>We define an "IGP domain" to be the set of nodes, links and prefixes,
-            within which, each node has a unique IGP representation by using
-            the combination of Area-ID, Router-ID, Protocol, Topology-ID, Instance ID,
-            etc. The problem is that BGP may receive node/link/prefix information
-	    from multiple
-            independent "IGP domains" and we need to distinguish between them.
-            Moreover, we can't assume there is always one and only one IGP
-            domain per Autonomous System. During IGP Protocol transitions it
-	    may happen that two redundant IGPs are in place.
-	    </t>
+            <t>We define an "IGP domain" to be the set of nodes, links and
+            prefixes, within which, each node has a unique IGP representation by
+            using the combination of Area-ID, Router-ID, Protocol, Topology-ID,
+            Instance ID, etc. The problem is that BGP may receive
+            node/link/prefix information from multiple independent "IGP domains"
+            and we need to distinguish between them.  Moreover, we can't assume
+            there is always one and only one IGP domain per Autonomous
+            System. During IGP Protocol transitions it may happen that two
+            redundant IGPs are in place.</t>
 
-	    <t>In section <xref target="node_desc_tlvs"></xref>
-	    a set of subTLVs is described, which
-	    allows to specify a flexible key for any given Node/Link information
-	    such that global uniqueness of the NLRI is ensured.
-	    </t>
-	  </section>
+            <t>In section <xref target="node_desc_tlvs"></xref> a set of subTLVs
+            is described, which allows to specify a flexible key for any given
+            Node/Link information such that global uniqueness of the NLRI is
+            ensured.</t>
+          </section>
 
           <section anchor="LOCALNODEDESC" title="Local Node Descriptors">
             <t>The Local Node Descriptors TLV contains Node Descriptors for the
@@ -643,10 +639,6 @@ BGP ID and the AS#: should we mandate it? -->
               <c>Area-ID</c>
               <c>4</c>
 
-              <c>518</c>
-              <c>Multi-Topology-ID</c>
-              <c>4</c>
-
             </texttable>
 
             <t>The subTLV values in Node Descriptor TLVs are defined as
@@ -664,19 +656,19 @@ BGP ID and the AS#: should we mandate it? -->
               advertised. The PSN octet MUST be zero for non-LAN
               "Pseudonodes".</t>
 
-              <t hangText="IPv4 Router ID:">opaque value (can be an
-	      IPv4 address or an 32 Bit router ID) followed by 4 octets of
-	      Pseudonode. The Pseudonode octets are used to discriminate a
-	      Pseudonode from a Real Node for LANs.  An Implementation MUST set the
-	      Pseudonode octets to zero for Non Pseudonodes. An Implementation
-	      SHOULD set the Pseudonode Byte to non-zero for a Node representing a
-	      LAN. When encoding a Pseudonode for OSPF the router-ID is the IP
-	      Address of the Designated Router.  To disambiguate The Pseudonode with
-	      a non-Pseudonode router the Pseudonode octets should be set to 1.
-	      When encoding a Pseudonode for OSPFv3 the router-ID is the IP Address
-	      of the Designated Router. To disambiguate The Pseudonode with a
-	      non-Pseudonode router the Pseudonode octets should bet set to the
-	      interface-ID of the Network LSA.</t>
+              <t hangText="IPv4 Router ID:">opaque value (can be an IPv4 address
+              or an 32 Bit router ID) followed by 4 octets of Pseudonode. The
+              Pseudonode octets are used to discriminate a Pseudonode from a
+              Real Node for LANs.  An Implementation MUST set the Pseudonode
+              octets to zero for Non Pseudonodes. An Implementation SHOULD set
+              the Pseudonode Byte to non-zero for a Node representing a
+              LAN. When encoding a Pseudonode for OSPF the router-ID is the IP
+              Address of the Designated Router.  To disambiguate The Pseudonode
+              with a non-Pseudonode router the Pseudonode octets should be set
+              to 1.  When encoding a Pseudonode for OSPFv3 the router-ID is the
+              IP Address of the Designated Router. To disambiguate The
+              Pseudonode with a non-Pseudonode router the Pseudonode octets
+              should bet set to the interface-ID of the Network LSA.</t>
 
               <t hangText="IPv6 Router ID:">opaque value (can be an IPv6 address
               or an 128 Bit router ID) followed by a Pseudonode octet. The
@@ -687,37 +679,14 @@ BGP ID and the AS#: should we mandate it? -->
               encoding a Pseudonode for OSPF the router-ID is the IP Address of
               the Designated Router.  To disambiguate The Pseudonode with a
               non-Pseudonode router the Pseudonode Byte should be set to 1.
-	      Note that the IPv6 Router ID applies only when 128-Bit
-	      TE-IDs are generated as per <xref target="RFC6119">RFC 6119</xref>.</t>
+              Note that the IPv6 Router ID applies only when 128-Bit TE-IDs are
+              generated as per <xref target="RFC6119"/>.</t>
 
               <t hangText="Area ID:">It is used to identify the 32 Bit area to
               which the NLRI belongs. Area Identifier allows the different NLRIs
               of the same router to be discriminated.
               </t>
-		
-              <t hangText="MT-ID:">carries the Multi Topology ID for the link,
-              node or prefix. Semantics of the IS-IS Multi Topology ID are
-              defined in <xref target="RFC5120">RFC5120, Section 7.2</xref>.
-              Semantics of the OSPF Multi Topology ID are defined in <xref
-              target="RFC4915">RFC4915, Section 3.7</xref>. If the value in the
-              Multi Topology ID TLV is derived from OSPF, then the upper 9 bits
-              of the Multi Topology ID are set to 0.
-
-              <figure anchor="MTIDTLV" title="Multi Topology ID TLV format">
-                <artwork>
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |              Type             |             Length            | 
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |R R R R|   Multi Topology ID   | 
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                </artwork>
-              </figure>
-
-              The Multi Topology Identifier SubTLV MAY be present in any NLRI
-              Type.</t>
-
+              
               <t>There can be at most one instance of each subTLV type present
               in any Node Descriptor. The TLV ordering within a Node descriptor
               MUST be kept in order of increasing numeric value of type. This
@@ -770,6 +739,41 @@ BGP ID and the AS#: should we mandate it? -->
           </section>
         </section>
 
+        <section anchor="MT-ID" title="Multi-Topology ID">
+          <t >The Multi-Topology ID TLV carries one or more IS-IS or OSPF Multi
+          Topology IDs for a link, node or prefix.</t>
+
+          <t>Semantics of the IS-IS Multi-Topology ID are defined in <xref
+          target="RFC5120">RFC5120, Section 7.2</xref>.  Semantics of the OSPF
+          Multi-Topology ID are defined in <xref target="RFC4915">RFC4915,
+          Section 3.7</xref>. If the value in the Multi-Topology ID TLV is
+          derived from OSPF, then the upper 9 bits are set to 0.</t>
+
+          <t>The format of the Multi-Topology ID TLV is shown in the following
+          figure.</t>
+
+          <figure anchor="MTIDTLV" title="Multi Topology ID TLV format">
+            <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |              Type             |          Length=2*n           | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |R R R R|  Multi Topology ID 1  |             ....             //
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //             ....             |R R R R|  Multi Topology ID n  |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            </artwork>
+          </figure>
+
+          <t>where Type is 263, Length is n*2 and n is the number of
+          Multi-Topology IDs carried in the TLV.</t>
+
+          <t>The Multi-Topology ID TLV MAY be present in a Link Descriptor, a
+          Prefix Descriptor, or in the Link State attribute.</t>
+
+        </section>
+
         <section title="Link Descriptors">
           <t>The 'Link Descriptor' field is a set of Type/Length/Value (TLV)
           triplets. The format of each TLV is shown in <xref
@@ -789,7 +793,7 @@ BGP ID and the AS#: should we mandate it? -->
           Descriptor' TLVs were originally defined for IS-IS, the TLVs can
           carry data sourced either by IS-IS or OSPF.</t>
 
-          <t>The following link descriptor TLVs are valid in the Link
+          <t>The following TLVs are valid as Link Descriptors in the Link
           NLRI:</t>
 
           <texttable anchor="table_link_descriptor_tlv"
@@ -823,43 +827,54 @@ BGP ID and the AS#: should we mandate it? -->
             <c>IPv6 neighbor address</c>
             <c>22/13</c>
             <c><xref target="RFC6119"></xref>/4.3</c>
+
+            <c>263</c>
+            <c>Multi-Topology Identifier</c>
+            <c>---</c>
+            <c><xref target="MT-ID"/></c>
           </texttable>
+
         </section>
 
         <section anchor="PREFIXDESC" title="Prefix Descriptors">
-          <t>The 'Prefix descriptor' TLVs uniquely identify a Prefix (IPv4 or
-          IPv6) originated by a Node.</t>
-
-          <t>The following Prefix descriptor TLVs are valid in the IPv4/IPv6
-          Prefix NLRI:</t>
+          <t>>The 'Prefix Descriptor' field is a set of Type/Length/Value (TLV)
+          triplets. 'Prefix Descriptor' TLVs uniquely identify an IPv4 or IPv6
+          Prefix originated by a Node. The following TLVs are valid as Prefix
+          Descriptors in the IPv4/IPv6 Prefix NLRI:</t>
 
           <texttable anchor="table_prefix_descriptor_tlv"
                      title="Prefix Descriptor TLVs">
             <ttcol align="center">TLV Code Point</ttcol>
             <ttcol align="left">Description</ttcol>
             <ttcol align="center">Length</ttcol>
+            <ttcol align="left">Value defined in:</ttcol>
+
+            <c>263</c>
+            <c>Multi-Topology Identifier</c>
+            <c>variable</c>
+            <c><xref target="MT-ID"/></c>
 
             <c>264</c>
             <c>OSPF Route Type</c>
             <c>1</c>
+            <c><xref target="OSPFRTETYPE"/></c>
 
             <c>265</c>
             <c>IP Reachability Information</c>
             <c>variable</c>
+            <c><xref target="IPREACHINFO"/></c>
           </texttable>
 
-            <t>The Prefix Descriptor TLVs are defined in the following sections. </t>
+          <section anchor="OSPFRTETYPE" title="OSPF Route Type">
+            <t> OSPF Route Type is an optional TLV that MAY be present in Prefix
+            NLRIs. It is used to identify the OSPF route-type of the prefix. It
+            is used when an OSPF prefix is advertised in the OSPF domain with
+            multiple different route-types. The Route Type TLV allows to
+            discriminate these advertisements. The format of the OSPF Route Type
+            TLV is shown in the following figure.</t>
 
-            <section title="OSPF Route Type">
-              <t> OSPF Route Type is an optional TLV that MAY be present in
-              Prefix NLRIs. It is used to identify the OSPF route-type of the
-              prefix. It is used when an OSPF prefix is advertised in the OSPF
-              domain with multiple different route-types. The Route Type TLV
-              allows to discriminate these advertisements. The format of the
-              OSPF Route Type TLV is shown in the following figure.</t>
-
-              <figure anchor="ROUTETYPETLV" title="OSPF Route Type TLV Format">
-                <artwork>
+            <figure anchor="ROUTETYPETLV" title="OSPF Route Type TLV Format">
+              <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -886,7 +901,7 @@ BGP ID and the AS#: should we mandate it? -->
               </t>
             </section>
 
-            <section title="IP Reachability Information">
+            <section anchor="IPREACHINFO" title="IP Reachability Information">
               <t>The IP Reachability Information is a mandatory TLV that
               contains one or more IP address prefixes (IPv4 or IPv6) originally
               advertised in the IGP topology. The format of the IP Reachability
@@ -936,6 +951,28 @@ BGP ID and the AS#: should we mandate it? -->
         following section. This attribute SHOULD only be included with Link
         State NLRIs. This attribute MUST be ignored for all other NLRIs.</t>
 
+        <section anchor="ISISAREA"
+                 title="IS-IS Area Identifier TLV">
+          <t>The area address is carried in the IS-IS Area Identifier TLV and consists of
+          the Area Address which is assigned to the link. If more than one Area
+          Addresses are present, only the lower address is encoded. Note that
+          the Area Identifier TLV may be present in the LINK_STATE attribute
+          with all Link State NLRIs (Link, Node and Prefix).
+          </t>
+
+          <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
+            <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |              Type             |             Length            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //                 Area Identifier (variable)                  //
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            </artwork>
+          </figure>
+        </section>
+
         <section title="Node Attribute TLVs">
           <t>The following node attribute TLVs are defined:</t>
 
@@ -943,22 +980,32 @@ BGP ID and the AS#: should we mandate it? -->
             <ttcol align="center">TLV Code Point</ttcol>
             <ttcol align="left">Description</ttcol>
             <ttcol align="right">Length</ttcol>
+            <ttcol align="left">Value defined in:</ttcol>
+
+            <c>263</c>
+            <c>Multi-Topology Identifier</c>
+            <c>variable</c>
+            <c><xref target="MT-ID"/></c>
 
             <c>1024</c>
             <c>Node Flag Bits</c>
             <c>1</c>
+            <c><xref target="NODEFLAGBITS"/></c>
 
             <c>1025</c>
             <c>OSPF Specific Node Properties</c>
             <c>variable</c>
+            <c><xref target="OSPFSPECIFICNODE"/></c>
 
             <c>1026</c>
             <c>IS-IS Specific Node Properties</c>
             <c>variable</c>
+            <c><xref target="ISISSPECIFICNODE"/></c>
 
             <c>1027</c>
-            <c>IS-IS Area Address/Domain Identifier</c>
+            <c>IS-IS Area Identifier</c>
             <c>variable</c>
+            <c><xref target="ISISAREA"/></c>
           </texttable>
 
           <section anchor="NODEFLAGBITS" title="Node Flag Bits TLV">
@@ -1082,6 +1129,11 @@ BGP ID and the AS#: should we mandate it? -->
             <ttcol align="left">Description</ttcol>
             <ttcol align="center">IS-IS TLV/Sub-TLV</ttcol>
             <ttcol align="left">Defined in:</ttcol>
+
+            <c>1027</c>
+            <c>IS-IS Area Identifier</c>
+            <c>variable</c>
+            <c><xref target="ISISAREA"/></c>
 
             <c>1088</c>
             <c>Administrative group (color)</c>
@@ -1279,29 +1331,6 @@ BGP ID and the AS#: should we mandate it? -->
             </artwork>
             </figure>
           </section>
-
-          <section anchor="ISISAREA"
-                   title="IS-IS Area TLV">
-            <t>The area address is carried in the Area Identifier SubTLV of
-            the Identifier TLV and consists of the Area Address which is
-            assigned to the link. If more than one Area Addresses are present,
-            only the lower address is encoded. Note that the Area Identifier
-            TLV may appear in all NLRI types (Link, Node and Prefix).
-            </t>
-
-            <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
-              <artwork>   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |              Type             |             Length            |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //                Area Identifier (variable)                   //
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  </artwork>
-            </figure>
-
-
-          </section>
         </section>
 
         <section title="Prefix Attribute TLVs">
@@ -1318,6 +1347,11 @@ BGP ID and the AS#: should we mandate it? -->
             <ttcol align="left">Description</ttcol>
             <ttcol align="right">Length</ttcol>
             <ttcol align="left">Reference</ttcol>
+
+            <c>1027</c>
+            <c>IS-IS Area Identifier</c>
+            <c>variable</c>
+            <c><xref target="ISISAREA"/></c>
 
             <c>1152</c>
             <c>IGP Flags</c>
@@ -1411,7 +1445,7 @@ BGP ID and the AS#: should we mandate it? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                     Route Tags (one or more)                  | 
+  //                    Route Tags (one or more)                 // 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
             </figure>
@@ -1434,7 +1468,7 @@ BGP ID and the AS#: should we mandate it? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                 Extended Route Tag (one or more)              | 
+  //                Extended Route Tag (one or more)             // 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   </artwork>
             </figure>
@@ -1779,7 +1813,7 @@ BGP ID and the AS#: should we mandate it? -->
                  title="Summary Table of TLV/SubTLV Codepoints">
         <ttcol align="center">TLV Code Point</ttcol>
         <ttcol align="left">Description</ttcol>
-        <ttcol align="center">IS-IS TLV/Sub-TLV</ttcol>
+        <ttcol align="center">IS-IS TLV/ Sub-TLV</ttcol>
         <ttcol align="left">Value defined in:</ttcol>
 
         <!-- NLRI TLVs -->
@@ -1821,7 +1855,7 @@ BGP ID and the AS#: should we mandate it? -->
         <c>263</c>
         <c>Multi Topology ID</c>
         <c>---</c>
-        <c><xref target="MTIDTLV"></xref></c>
+        <c><xref target="MT-ID"></xref></c>
 
         <c>264</c>
         <c>OSPF Route Type</c>
@@ -1865,10 +1899,6 @@ BGP ID and the AS#: should we mandate it? -->
         <c>---</c>
         <c><xref target="node_desc_tlvs"></xref></c>
 
-        <c>518</c>
-        <c>Multi-Topology ID</c>
-        <c>---</c>
-        <c><xref target="node_desc_tlvs"></xref></c>
 
         <!-- Link State Attribute TLVs -->
 
@@ -1889,9 +1919,9 @@ BGP ID and the AS#: should we mandate it? -->
         <c><xref target="ISISSPECIFICNODE"></xref></c>
 
         <c>1027</c>
-        <c>IS-IS Area Address/Domain Identifier</c>
+        <c>IS-IS Area Identifier</c>
         <c>variable</c>
-        <c>XXX: Do we need this? No definition</c>
+        <c><xref target="ISISAREA"/></c>
  
        <!-- Link  Attribute TLVs -->
 
