@@ -133,7 +133,7 @@
 
       <t>Both a PCE and an ALTO Server need to gather information about the
       topologies and capabilities of the network in order to be able to
-      fulfill their function</t>
+      fulfill their function.</t>
 
       <t>This document describes a mechanism by which Link State and TE
       information can be collected from networks and shared with external
@@ -196,7 +196,7 @@
     </section>
 
     <section title="Motivation and Applicability">
-      <t>This section describes uses cases from which the requirements can be
+      <t>This section describes use cases from which the requirements can be
       derived.</t>
 
       <section title="MPLS-TE with PCE">
@@ -348,7 +348,9 @@
         <t>The Length field defines the length of the value portion in octets
         (thus a TLV with no value portion would have a length of zero). The
         TLV is not padded to four-octet alignment. Unrecognized types are
-        ignored.</t>
+        ignored. All TLVs that are not specified as mandatory are considered
+        optional.
+	</t>
       </section>
 
       <section title="The Link State NLRI">
@@ -356,9 +358,9 @@
         carrying opaque information. Each Link State NLRI describes either a
         node, a link or a prefix.</t>
 
-        <t>All non-VPN link, node and prefix information SHALL be encoded using
-        AFI 16388 / SAFI 71 header into those attributes. VPN link, node and
-	prefix information SHALL be encoded using AFI 16388 / SAFI 128</t>
+        <t>All non-VPN link, node and prefix information SHALL be
+        encoded using AFI 16388 / SAFI 71. VPN link, node and prefix
+        information SHALL be encoded using AFI 16388 / SAFI 128.</t>
 
         <t>In order for two BGP speakers to exchange Link-State NLRI, they
         MUST use BGP Capabilities Advertisement to ensure that they both are
@@ -514,7 +516,7 @@
 
 
         <section title="Node Descriptors">
-          <t>Each link gets anchored by a pair of router-IDs that are
+          <t>Each link is anchored by a pair of router-IDs that are
           used by the underlying IGP protocol, namely, 48 Bit ISO
           System-ID for IS-IS and 32 bit router-id for OSPFv2 and
           OSPFv3. An IGP protocol may use one or more additional
@@ -528,7 +530,7 @@
 
           <t>It is desirable that the Router-ID assignments inside the
           Node anchor are globally unique. However there may be
-          router-ID spaces (e.g. ISO) where not even a global registry
+          router-ID spaces (e.g. ISO) where no global registry
           exists, or worse, Router-IDs have been allocated following
           private-IP <xref target="RFC1918">RFC 1918</xref>
           allocation. We use Autonomous System (AS) Number and BGP-LS
@@ -548,16 +550,16 @@
             <t>(B) Two different nodes must not be represented by the same key
             (otherwise, two nodes will look like one node).</t>
 
-            <t>We define an "IGP domain" to be the set of nodes, links
-            and prefixes, within which, each node has a unique IGP
-            representation by using the combination of Area-ID,
-            Router-ID, Protocol, Topology-ID, Instance ID, etc. The
-            problem is that BGP may receive node/link/prefix
-            information from multiple independent "IGP domains" and we
-            need to distinguish between them.  Moreover, we can't
-            assume there is always one and only one IGP domain per
-            AS. During IGP Protocol transitions it may happen that two
-            redundant IGPs are in place.</t>
+            <t>We define an "IGP domain" to be the set of nodes
+            (hence, by extension links and prefixes), within which,
+            each node has a unique IGP representation by using the
+            combination of Area-ID, Router-ID, Protocol, Topology-ID,
+            Instance ID, etc. The problem is that BGP may receive
+            node/link/prefix information from multiple independent
+            "IGP domains" and we need to distinguish between them.
+            Moreover, we can't assume there is always one and only one
+            IGP domain per AS. During IGP Protocol transitions it may
+            happen that two redundant IGPs are in place.</t>
 
             <t>In section <xref target="node_desc_tlvs"></xref> a set of subTLVs
             is described, which allows to specify a flexible key for any given
@@ -566,10 +568,12 @@
           </section>
 
           <section anchor="LOCALNODEDESC" title="Local Node Descriptors">
-            <t>The Local Node Descriptors TLV contains Node Descriptors for the
-            node anchoring the local end of the link. The length of this TLV is
-            variable. The value contains one or more Node Descriptor Sub-TLVs
-            defined in <xref target="node_desc_tlvs"></xref>.</t>
+            <t>The Local Node Descriptors TLV contains Node
+            Descriptors for the node anchoring the local end of the
+            link. This is a mandatory TLV in all three types of
+            NLRIs. The length of this TLV is variable. The value
+            contains one or more Node Descriptor Sub-TLVs defined in
+            <xref target="node_desc_tlvs"></xref>.</t>
 
             <figure anchor="LOCALNODEDESCTLV"
                     title="Local Node Descriptors TLV format">
@@ -588,10 +592,12 @@
           </section>
 
           <section anchor="REMOTENODEDESC" title="Remote Node Descriptors">
-            <t>The Remote Node Descriptors TLV contains Node Descriptors for the
-            node anchoring the remote end of the link. The length of this TLV is
-            variable. The value contains one or more Node Descriptor Sub-TLVs
-            defined in <xref target="node_desc_tlvs"></xref>.</t>
+            <t>The Remote Node Descriptors contains Node Descriptors
+            for the node anchoring the remote end of the link. This is
+            a mandatory TLV for link NLRIs. The length of this TLV is
+            variable. The value contains one or more Node Descriptor
+            Sub-TLVs defined in <xref
+            target="node_desc_tlvs"></xref>.</t>
 
             <figure anchor="REMOTENODEDESCTLV"
                     title="Remote Node Descriptors TLV format">
@@ -645,18 +651,19 @@
               Number)</t>
 
               <t hangText="BGP-LS Identifier:">opaque value (32 Bit
-              ID); uniquely identifying the BGP-LS domain. The
-              combination of ASN and BGP-LS ID MUST be globally
-              unique. All BGP-LS speakers within an IGP flooding-set
-              (set of IGP nodes within which an LSP/LSA is flooded)
-              MUST use the same BGP-LS ID. If an IGP domain consists
-              of multiple flooding-sets, then all BGP-LS speakers
-              within the IGP domain SHOULD use the same BGP-LS ID.
-              The BGP router-id of one of the BGP-LS speakers within
-              the flooding-set (or IGP domain), which along with ASN
-              is globally unique <xref target="RFC6286"></xref>, can be used
-              as the BGP-LS ID of all BGP-LS speakers in that
-              flooding-set (or IGP domain).
+              ID). In conjuction with ASN, uniquely identifies the
+              BGP-LS domain. The combination of ASN and BGP-LS ID MUST
+              be globally unique. All BGP-LS speakers within an IGP
+              flooding-set (set of IGP nodes within which an LSP/LSA
+              is flooded) MUST use the same ASN, BGP-LS ID tuple. If
+              an IGP domain consists of multiple flooding-sets, then
+              all BGP-LS speakers within the IGP domain SHOULD use the
+              same ASN, BGP-LS ID tuple.  The ASN, BGP router-id tuple
+              (which is globally unique <xref
+              target="RFC6286"></xref>) of one of the BGP-LS speakers
+              within the flooding-set (or IGP domain) may be used for
+              all BGP-LS speakers in that flooding-set (or IGP
+              domain).
               </t>
 
               <t hangText="Area ID:">It is used to identify the 32 Bit area to
@@ -664,107 +671,37 @@
               of the same router to be discriminated.
               </t>
               
-              <t hangText="IGP Router ID:">opaque value. For an IS-IS
-              non-Pseudonode, this contains 6 octet ISO node-ID (ISO
-              system-ID). For an IS-IS Pseudonode corresponding to a
-              LAN, this contains 6 octet ISO node-ID of the
-              "Designated Intermediate System" (DIS) followed by one
-              octet nonzero PSN identifier (7 octet in total).  For an
-              OSPFv2 or OSPFv3 non-"Pseudonode", this contains 4 octet
-              router-id.  For an OSPFv2 "Pseudonode" representing a
-              LAN, this contains 4 octet router-id of the designated
-              router (DR) followed by 4 octet IPv4 address of the DR's
-              interface to the LAN (8 octet in total). Similarly, for
-              an OSPFv3 "Pseudonode", this contains 4 octet router-id
-              of the DR followed by 4 octet interface identifier of
-              the DR's interface to the LAN (8 octet in total). The
-              TLV size in combination with protocol identifier enables
-              the decoder to determine the type of the node.
+              <t hangText="IGP Router ID:">opaque value. This is a
+              mandatory TLV.  For an IS-IS non-Pseudonode, this
+              contains 6 octet ISO node-ID (ISO system-ID). For an
+              IS-IS Pseudonode corresponding to a LAN, this contains 6
+              octet ISO node-ID of the "Designated Intermediate
+              System" (DIS) followed by one octet nonzero PSN
+              identifier (7 octet in total).  For an OSPFv2 or OSPFv3
+              non-"Pseudonode", this contains 4 octet router-id.  For
+              an OSPFv2 "Pseudonode" representing a LAN, this contains
+              4 octet router-id of the designated router (DR) followed
+              by 4 octet IPv4 address of the DR's interface to the LAN
+              (8 octet in total). Similarly, for an OSPFv3
+              "Pseudonode", this contains 4 octet router-id of the DR
+              followed by 4 octet interface identifier of the DR's
+              interface to the LAN (8 octet in total). The TLV size in
+              combination with protocol identifier enables the decoder
+              to determine the type of the node.
               </t>
 
               <t>There can be at most one instance of each subTLV type
               present in any Node Descriptor. The TLV ordering within
               a Node descriptor MUST be kept in order of increasing
               numeric value of type. This needs to be done in order to
-              compare NLRIs, even when a implementation encounters an
+              compare NLRIs, even when an implementation encounters an
               unknown subTLV. Using stable sorting an implementation
-              can do a binary comparison of NLRIs and hence allow
+              can do binary comparison of NLRIs and hence allow
               incremental deployment of new key subTLVs.</t>
             </list>
             </t>
           </section>
 
-          <section title="Router-ID Anchoring Example: ISO Pseudonode">
-            <t>Encoding of a broadcast LAN in IS-IS provides a good
-            example of how router-ids are encoded. Consider <xref
-            target="ISISPseudonodes"></xref>. This represents a
-            Broadcast LAN between a pair of routers. The "real" (=non
-            pseudonode) routers have both an IPv4 Router-ID and IS-IS
-            Node-ID. The pseudonode does not have an IPv4
-            Router-ID. Node1 is the DIS for the LAN. Two
-            unidirectional links (Node1, Pseudonode 1) and (Pseudonode
-            1, Node 2) are being generated.</t>
-
-            <t>The link NRLI of (Node1, Pseudonode1) is encoded as
-            follows: the IGP router-id TLV of the local node
-            descriptor is 6 octet long containing ISO-ID of Node1,
-            1920.0000.2001; the IGP router-id TLV of the remote node
-            descriptor is 7 octet long containing the ISO-ID of
-            Pseudonode1, 1920.0000.2001.02. The BGP-LS attribute of
-            this link contains one local IPv4 router-id TLV (TLV type
-            1028) containing 192.0.2.1, the IPv4 router-id of Node1.
-            </t>
-            <t>The link NRLI of (Pseudonode1. Node2) is encoded as
-            follows: the IGP router-id TLV of the local node
-            descriptor is 7 octet long containing the ISO-ID of
-            Pseudonode1, 1920.0000.2001.02; the IGP router-id TLV of
-            the remote node descriptor is 6 octet long containing
-            ISO-ID of Node2, 1920.0000.2002. The BGP-LS attribute of
-            this link contains one remote IPv4 router-id TLV (TLV type
-            1030) containing 192.0.2.2, the IPv4 router-id of Node2.
-            </t>
-
-            <figure anchor="ISISPseudonodes" title="IS-IS Pseudonodes">
-              <artwork>
-  +-----------------+    +-----------------+    +-----------------+
-  |      Node1      |    |   Pseudonode 1  |    |      Node2      |
-  |1920.0000.2001.00|---&gt;|1920.0000.2001.02|---&gt;|1920.0000.2002.00|
-  |     192.0.2.1   |    |                 |    |     192.0.2.2   |
-  +-----------------+    +-----------------+    +-----------------+
-  </artwork>
-            </figure>
-          </section>
-
-          <section title="Router-ID Anchoring Example: OSPFv2 to IS-IS Migration">
-            <t>Graceful migration from one IGP to another requires
-            coordinated operation of both protocols during the
-            migration period.  Such a coordination requires
-            identifying a given physical link in both IGP
-            protocols. The IPv4 router-id provides that "glue" which
-            is present in the node descriptors of the OSPF link NLRI
-            and in the link attribute of the IS-IS link NLRI.
-            </t>
-	    <t>
-            Consider a point-to-point link between two routers, A and
-            B, that initially were OSPFv2-only routers and then IS-IS
-            is enabled on them. Node A has IPv4 router-id and ISO-ID;
-            node B has IPv4 router-id, IPv6 router-id and ISO-ID.
-            Each protocol generates one link NLRI for the link (A, B),
-            both of which are carried by BGP-LS. The OSPFv2 link NLRI
-            for the link is encoded with the IPv4 router-id of nodes A
-            and B in the local and remote node descriptors,
-            respectively.  The IS-IS link NLRI for the link is encoded
-            with the ISO-ID nodes A and B in the local and remote node
-            descriptors, respectively. In addition, the BGP-LS
-            attribute of the IS-IS link NLRI contains the the TLV type
-            1028 containing the IPv4 router-id of node A; TLV type
-            1030 containing the IPv4 router-id of node B and TLV type
-            1031 containing the IPv6 router-id of node B. In this
-            case, by using IPv4 router-id, the link (A, B) can be
-            identified in both IS-IS and OSPF protocol.
-	    </t>
-          </section>
-        </section>
 
         <section anchor="MT-ID" title="Multi-Topology ID">
           <t >The Multi-Topology ID (MT-ID) TLV carries one or more
@@ -802,8 +739,8 @@
           NLRI. In Link or Prefix Descriptor, only one MT-ID TLV
           containing only the MT-ID of the topology where the link or
           the prefix belongs is allowed. In the BGP-LS attribute of a
-          node NLRI, one MT-ID TLV with MT-IDs of all topologies where
-          the node belongs can be present.
+          node NLRI, one MT-ID TLV containing the array of MT-IDs of
+          all topologies where the node belongs can be present.
 	  </t>
 
         </section>
@@ -813,12 +750,12 @@
           (TLV) triplets. The format of each TLV is shown in <xref
           target="TLV-section"></xref>. The 'Link descriptor' TLVs
           uniquely identify a link among multiple parallel links
-          between a pair of anchor Routers. A link described by the
+          between a pair of anchor routers. A link described by the
           Link descriptor TLVs actually is a "half-link", a
           unidirectional representation of a logical link. In order to
           fully describe a single logical link two originating routers
-          need to advertise a half-link each, i.e. two link NLRIs will
-          be advertised.</t>
+          advertise a half-link each, i.e. two link NLRIs are
+          advertised.</t>
 
           <t>The format and semantics of the 'value' fields in most 'Link
           Descriptor' TLVs correspond to the format and semantics of value
@@ -872,7 +809,7 @@
         </section>
 
         <section anchor="PREFIXDESC" title="Prefix Descriptors">
-          <t>>The 'Prefix Descriptor' field is a set of Type/Length/Value (TLV)
+          <t>The 'Prefix Descriptor' field is a set of Type/Length/Value (TLV)
           triplets. 'Prefix Descriptor' TLVs uniquely identify an IPv4 or IPv6
           Prefix originated by a Node. The following TLVs are valid as Prefix
           Descriptors in the IPv4/IPv6 Prefix NLRI:</t>
@@ -940,7 +877,7 @@
               <t>The IP Reachability Information is a mandatory TLV that
               contains one IP address prefix (IPv4 or IPv6) originally
               advertised in the IGP topology. The format of the IP Reachability
-              Information TLV is shown in the following figure.</t>
+              Information TLV is shown in the following figure:</t>
 
               <figure anchor="IPREACHABILITYTLV" title="IP Reachability Information TLV Format">
                 <artwork>
@@ -949,21 +886,20 @@
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  | Prefix Length | IP prefix (variable)                         //
+  | Prefix Length | IP Prefix (variable)                         //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                 </artwork>
               </figure>
-              <t>where the Type and Length fields of the TLV are
-              defined in <xref
-              target="table_prefix_descriptor_tlv"/>. The IP Prefix
-              Tuples field determines the address-family reachability
-              information, and is encoded as a 2-tuple of the form
-              &lt;length, prefix&gt;.  The 'Length' field contains the
-              length of the prefix in bits.  Only the most significant
-              octets of the prefix are encoded. I.e. 1 octet for
-              prefix length 1 up to 8, 2 octets for prefix length 9 to
-              16, 3 octets for prefix length 17 up to 24 and 4 octets
-              for prefix length 25 up to 32, etc.</t>
+              <t>The Type and Length fields of the TLV are defined in
+              <xref target="table_prefix_descriptor_tlv"/>. The
+              following two fields determine the address-family
+              reachability information.  The 'Prefix Length' field
+              contains the length of the prefix in bits.  The 'IP
+              Prefix' field contains the most significant octets of
+              the prefix; i.e., 1 octet for prefix length 1
+              up to 8, 2 octets for prefix length 9 to 16, 3 octets
+              for prefix length 17 up to 24 and 4 octets for prefix
+              length 25 up to 32, etc.</t>
             </section>
         </section>
       </section>
@@ -977,11 +913,12 @@
 
         <section anchor="ISISAREA"
                  title="IS-IS Area Identifier TLV">
-          <t>The area address is carried in the IS-IS Area Identifier TLV and consists of
-          the Area Address which is assigned to the link. If more than one Area
-          Addresses are present, multiple TLVs are used to encode them. Note that
-          the IS-IS Area Identifier TLV may be present in the LINK_STATE attribute
-          with all Link State NLRIs (Link, Node and Prefix).
+          <t>An IS-IS node can be part of one or more IS-IS
+          areas. Each of these area addresses is carried in the IS-IS
+          Area Identifier TLV. If more than one Area Addresses are
+          present, multiple TLVs are used to encode them. The IS-IS
+          Area Identifier TLV may be present in the LINK_STATE
+          attribute with all Link State NLRIs (Link, Node and Prefix).
           </t>
 
           <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
@@ -998,7 +935,9 @@
         </section>
 
         <section title="Node Attribute TLVs">
-          <t>The following node attribute TLVs are defined:</t>
+          <t>Node attribute TLVs are the TLVs that may be encoded in
+          the BGP-LS attribute with a node NLRI.  The following node
+          attribute TLVs are defined:</t>
 
           <texttable anchor="node-attribute_tlv" title="Node Attribute TLVs">
             <ttcol align="center">TLV Code Point</ttcol>
@@ -1153,15 +1092,18 @@
         </section>
 
         <section anchor="link_attribute" title="Link Attribute TLVs">
-          <t>Each 'Link Attribute' is a Type/Length/Value (TLV) triplet
-          formatted as defined in <xref target="TLV-section"></xref>. The
-          format and semantics of the 'value' fields in some 'Link Attribute'
-          TLVs correspond to the format and semantics of value fields in IS-IS
-          Extended IS Reachability sub-TLVs, defined in <xref
-          target="RFC5305"></xref> and <xref target="RFC5307"></xref>. Other
-          'Link Attribute' TLVs are defined in this document. Although the
-          encodings for 'Link Attribute' TLVs were originally defined for
-          IS-IS, the TLVs can carry data sourced either by IS-IS or OSPF.</t>
+          <t>Link attribute TLVs are TLVs that may be encoded in the
+          BGP-LS attribute with a link NLRI.  Each 'Link Attribute' is
+          a Type/Length/Value (TLV) triplet formatted as defined in
+          <xref target="TLV-section"></xref>. The format and semantics
+          of the 'value' fields in some 'Link Attribute' TLVs
+          correspond to the format and semantics of value fields in
+          IS-IS Extended IS Reachability sub-TLVs, defined in <xref
+          target="RFC5305"></xref> and <xref
+          target="RFC5307"></xref>. Other 'Link Attribute' TLVs are
+          defined in this document. Although the encodings for 'Link
+          Attribute' TLVs were originally defined for IS-IS, the TLVs
+          can carry data sourced either by IS-IS or OSPF.</t>
 
           <t>The following 'Link Attribute' TLVs are are valid in the
           LINK_STATE attribute:</t>
@@ -1499,7 +1441,7 @@
           </section>
 
           <section title="Route Tag">
-            <t>Route Tag TLV carries the original IGP TAG (IS-IS or OSPF) of
+            <t>Route Tag TLV carries original IGP TAGs (IS-IS or OSPF) of
             the prefix and is encoded as follows:</t>
 
             <figure anchor="IGPROUTETAG" title="IGP Route TAG TLV format">
@@ -1521,7 +1463,7 @@
           </section>
 
           <section title="Extended Route Tag">
-            <t>Extended Route Tag TLV carries the IS-IS Extended Route TAG of
+            <t>Extended Route Tag TLV carries IS-IS Extended Route TAGs of
             the prefix and is encoded as follows:</t>
 
             <figure anchor="IGPEXTROUTETAG"
@@ -1644,6 +1586,77 @@
       </section>
     </section>
 
+    <section title="Router-ID Anchoring Example: ISO Pseudonode">
+      <t>Encoding of a broadcast LAN in IS-IS provides a good
+      example of how router-ids are encoded. Consider <xref
+      target="ISISPseudonodes"></xref>. This represents a
+      Broadcast LAN between a pair of routers. The "real" (=non
+      pseudonode) routers have both an IPv4 Router-ID and IS-IS
+      Node-ID. The pseudonode does not have an IPv4
+      Router-ID. Node1 is the DIS for the LAN. Two
+      unidirectional links (Node1, Pseudonode 1) and (Pseudonode
+      1, Node 2) are being generated.</t>
+
+      <t>The link NRLI of (Node1, Pseudonode1) is encoded as
+      follows: the IGP router-id TLV of the local node
+      descriptor is 6 octet long containing ISO-ID of Node1,
+      1920.0000.2001; the IGP router-id TLV of the remote node
+      descriptor is 7 octet long containing the ISO-ID of
+      Pseudonode1, 1920.0000.2001.02. The BGP-LS attribute of
+      this link contains one local IPv4 router-id TLV (TLV type
+      1028) containing 192.0.2.1, the IPv4 router-id of Node1.
+      </t>
+      <t>The link NRLI of (Pseudonode1. Node2) is encoded as
+      follows: the IGP router-id TLV of the local node
+      descriptor is 7 octet long containing the ISO-ID of
+      Pseudonode1, 1920.0000.2001.02; the IGP router-id TLV of
+      the remote node descriptor is 6 octet long containing
+      ISO-ID of Node2, 1920.0000.2002. The BGP-LS attribute of
+      this link contains one remote IPv4 router-id TLV (TLV type
+      1030) containing 192.0.2.2, the IPv4 router-id of Node2.
+      </t>
+
+      <figure anchor="ISISPseudonodes" title="IS-IS Pseudonodes">
+        <artwork>
+  +-----------------+    +-----------------+    +-----------------+
+  |      Node1      |    |   Pseudonode 1  |    |      Node2      |
+  |1920.0000.2001.00|---&gt;|1920.0000.2001.02|---&gt;|1920.0000.2002.00|
+  |     192.0.2.1   |    |                 |    |     192.0.2.2   |
+  +-----------------+    +-----------------+    +-----------------+
+	</artwork>
+      </figure>
+    </section>
+
+    <section title="Router-ID Anchoring Example: OSPFv2 to IS-IS Migration">
+      <t>Graceful migration from one IGP to another requires
+      coordinated operation of both protocols during the
+      migration period.  Such a coordination requires
+      identifying a given physical link in both IGP
+      protocols. The IPv4 router-id provides that "glue" which
+      is present in the node descriptors of the OSPF link NLRI
+      and in the link attribute of the IS-IS link NLRI.
+      </t>
+      <t>
+        Consider a point-to-point link between two routers, A and B,
+        that initially were OSPFv2-only routers and then IS-IS is
+        enabled on them. Node A has IPv4 router-id and ISO-ID; node B
+        has IPv4 router-id, IPv6 router-id and ISO-ID.  Each protocol
+        generates one link NLRI for the link (A, B), both of which are
+        carried by BGP-LS. The OSPFv2 link NLRI for the link is
+        encoded with the IPv4 router-id of nodes A and B in the local
+        and remote node descriptors, respectively.  The IS-IS link
+        NLRI for the link is encoded with the ISO-ID of nodes A and B
+        in the local and remote node descriptors, respectively. In
+        addition, the BGP-LS attribute of the IS-IS link NLRI contains
+        the the TLV type 1028 containing the IPv4 router-id of node A;
+        TLV type 1030 containing the IPv4 router-id of node B and TLV
+        type 1031 containing the IPv6 router-id of node B. In this
+        case, by using IPv4 router-id, the link (A, B) can be
+        identified in both IS-IS and OSPF protocol.
+      </t>
+    </section>
+  </section>
+
     <section title="Link to Path Aggregation">
       <t>Distribution of all links available in the global Internet is
       certainly possible, however not desirable from a scaling and privacy
@@ -1655,7 +1668,7 @@
       compute the path properties (of bandwidth, metric) are outside the scope
       of this document. The decision whether to advertise all specific links
       or aggregated links is an operator's policy choice. To highlight the
-      varying levels of exposure, the following deployment examples shall be
+      varying levels of exposure, the following deployment examples are
       discussed.</t>
 
       <section title="Example: No Link Aggregation">
@@ -1754,7 +1767,7 @@
                title="Operational Considerations">
         <section anchor="Operations" title="Operations">
           <t>Existing BGP operation procedures apply. No new operation
-          procedures are defined in this document. It shall be noted that the
+          procedures are defined in this document. It is noted that the
           NLRI information present in this document purely carries application
           level data that have no immediate corresponding forwarding state
           impact. As such, any churn in reachability information has different
