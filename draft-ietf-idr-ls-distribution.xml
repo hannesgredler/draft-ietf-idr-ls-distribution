@@ -515,6 +515,14 @@
         within the set of TLVs with the same type.
 	</t>
 
+<!-- HG> FIXME why do we need to sort on the values ?
+can you give some rationale ?
+also we should make the type ordering a bit more strict
+see MP_REACH TLVs.
+
+furthermore, in order to do binary comparision wouldn't a MUST
+be more appropriate ?
+-->
 
         <section title="Node Descriptors">
           <t>Each link is anchored by a pair of Router-IDs that are
@@ -691,6 +699,11 @@
               to determine the type of the node.
               </t>
 
+<!--HG> shall we add a note what to do when a violation is detected ?
+i.e. consider the protocol-source being IS-IS and somebody
+accidentially encoding just 4 cotets of ID space, should we raise hell or
+just proceed with the advertised length field ? -->
+
               <t>There can be at most one instance of each sub-TLV type
               present in any Node Descriptor. The TLV ordering within
               a Node descriptor MUST be kept in order of increasing
@@ -758,7 +771,7 @@
           unidirectional representation of a logical link. In order to
           fully describe a single logical link two originating routers
           advertise a half-link each, i.e. two link NLRIs are
-          advertised.</t>
+          advertised for a given point-to-point link.</t>
 
           <t>The format and semantics of the 'value' fields in most 'Link
           Descriptor' TLVs correspond to the format and semantics of value
@@ -879,7 +892,11 @@
           <section anchor="IPREACHINFO" title="IP Reachability Information">
             <t>The IP Reachability Information is a mandatory TLV that
             contains one IP address prefix (IPv4 or IPv6) originally
-            advertised in the IGP topology. The format of the IP Reachability
+            advertised in the IGP topology. Its purpose is to glue a particular
+	    BGP service NLRI vi virtue of its BGP next-hop
+	    to a given Node in the LSDB. A router SHOULD advertise an
+	    IP Prefix NLRI for each of its BGP Next-hops.
+	    The format of the IP Reachability
             Information TLV is shown in the following figure:</t>
 	    
             <figure anchor="IPREACHABILITYTLV" title="IP Reachability Information TLV Format">
@@ -1069,6 +1086,12 @@
             Area Identifier TLV may be present in the LINK_STATE
             attribute with all Link State NLRIs (Link, Node and Prefix).
             </t>
+<!-- HG> i can understand why an IS-IS area is part of a node,
+but why would you want to advertise an IS-IS area for a link
+or prefix ? (noe that an IS-IS Area is a node property)
+also remove it from the table below.
+-->
+
 
             <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
               <artwork>
@@ -1087,7 +1110,8 @@
           <section anchor="aux_routerid_node" title="Local IPv4/IPv6 Router-ID">
           <t>The local IPv4/IPv6 Router-ID TLVs are used to describe
           auxiliary Router-IDs that the IGP might be using,
-          e.g., for TE purposes. If there are more than one auxiliary
+          e.g., for TE and migration purposes like correlating a Node-ID between
+	  different protocols. If there are more than one auxiliary
           Router-ID of a given type, then multiple TLVs are used to
           encode them.
           </t>
@@ -1254,6 +1278,11 @@
             Metric value is derived is less than 3 (e.g. for OSPF link metrics
             or non-wide IS-IS metric), then the upper bits of the TLV are set to
             0.</t>
+
+<!--HG> minor comment: shall we make this variable lenght i.e.
+IS-IS small metric one octet,
+OSPF two octets and
+IS-IS wide metric 3 octets ? -->
 
             <figure anchor="MET" title="Metric TLV format">
               <artwork>
@@ -1537,6 +1566,9 @@
             prefix specific data carried in OSPF and IS-IS, respectively.  The
             format of the TLV is as follows:</t>
 
+<!--HG> can you give some examples what would be specific to a prefix -
+what kind of data to expect here ? -->
+
             <figure anchor="IGPSPECIFICPRFXTLV"
                     title="OSPF and IS-IS Prefix Specific Data TLV Format">
               <artwork>
@@ -1588,7 +1620,8 @@
         information of inter-AS links (<xref target="RFC5392"></xref>,
         <xref target="RFC5316"></xref>). In other cases, for injecting
         a non-IGP enabled link into the BGP link-state RIB, an
-        implementation must support configuration of static links.</t>
+        implementation MUST support configuration of either 'Static'
+	or 'Direct' links.</t>
       </section>
 
       <section title="Router-ID Anchoring Example: ISO Pseudonode">
@@ -1746,7 +1779,10 @@
 
     <section anchor="IANA" title="IANA Considerations">
       <t>This document requests a code point from the registry of Address
-      Family Numbers.</t>
+      Family Numbers. As per early allocation procedure this is AFI 16388.</t>
+
+      <t>This document requests a code point from the registry of Subsequent
+      Address Family Numbers. As per early allocation procedure this is SAFI 71.</t>
 
       <t>This document requests a code point from the BGP Path Attributes
       registry.</t>
