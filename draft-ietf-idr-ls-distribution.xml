@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="26" month="March" year="2013" />
+    <date day="3" month="May" year="2013" />
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -1084,14 +1084,8 @@ just proceed with the advertised length field ? -->
             Area Identifier TLV. If more than one Area Addresses are
             present, multiple TLVs are used to encode them. The IS-IS
             Area Identifier TLV may be present in the LINK_STATE
-            attribute with all Link State NLRIs (Link, Node and Prefix).
+            attribute only with the Link State Node NLRI.
             </t>
-<!-- HG> i can understand why an IS-IS area is part of a node,
-but why would you want to advertise an IS-IS area for a link
-or prefix ? (noe that an IS-IS Area is a node property)
-also remove it from the table below.
--->
-
 
             <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
               <artwork>
@@ -1141,11 +1135,6 @@ also remove it from the table below.
             <ttcol align="left">Description</ttcol>
             <ttcol align="center">IS-IS TLV/Sub-TLV</ttcol>
             <ttcol align="left">Defined in:</ttcol>
-
-            <c>1027</c>
-            <c>IS-IS Area Identifier</c>
-            <c>variable</c>
-            <c><xref target="ISISAREA"/></c>
 
             <c>1028</c>
             <c>IPv4 Router-ID of Local Node</c>
@@ -1394,11 +1383,6 @@ IS-IS wide metric 3 octets ? -->
             <ttcol align="left">Description</ttcol>
             <ttcol align="right">Length</ttcol>
             <ttcol align="left">Reference</ttcol>
-
-            <c>1027</c>
-            <c>IS-IS Area Identifier</c>
-            <c>variable</c>
-            <c><xref target="ISISAREA"/></c>
 
             <c>1152</c>
             <c>IGP Flags</c>
