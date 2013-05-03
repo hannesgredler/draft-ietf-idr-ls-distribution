@@ -1255,16 +1255,15 @@ just proceed with the advertised length field ? -->
           </section>
 
           <section anchor="METTLV" title="Metric TLV">
-            <t>The IGP Metric TLV carries the metric for this link. The length
-            of this TLV is 3. If the length of the metric from which the IGP
-            Metric value is derived is less than 3 (e.g. for OSPF link metrics
-            or non-wide IS-IS metric), then the upper bits of the TLV are set to
-            0.</t>
-
-<!--HG> minor comment: shall we make this variable lenght i.e.
-IS-IS small metric one octet,
-OSPF two octets and
-IS-IS wide metric 3 octets ? -->
+            <t>
+	      The IGP Metric TLV carries the metric for this link.
+	      The length of this TLV is variable, depending
+	      on the metric width of the underlying protocol.
+	      IS-IS small metrics have a length of 1 octet
+	      (the two most significant bits are ignored).
+	      OSPF metrics have a length of two octects.
+	      IS-IS wide-metrics have a length of three octets.
+	    </t>
 
             <figure anchor="MET" title="Metric TLV format">
               <artwork>
@@ -1273,7 +1272,7 @@ IS-IS wide metric 3 octets ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                  IGP Link Metric              | 
+  |       IGP Link Metric (variable length)       | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	      </artwork>
             </figure>
