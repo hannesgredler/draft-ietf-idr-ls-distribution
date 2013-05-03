@@ -348,7 +348,12 @@
         <t>The Length field defines the length of the value portion in octets
         (thus a TLV with no value portion would have a length of zero). The
         TLV is not padded to four-octet alignment. Unrecognized types are
-        ignored. All TLVs that are not specified as mandatory are considered
+        preserved and propagated. In order to compare NLRIs with unknown
+	TLVs all TLVs MUST be ordered in ascending order. If there are
+	more TLVs of the same type, then the TLVs MUST be ordered
+	in ascending order of the TLV value within the set of TLVs with
+	the same type.
+	All TLVs that are not specified as mandatory are considered
         optional.
 	</t>
       </section>
@@ -506,23 +511,10 @@
         domain.
 	</t>
 
-        <t>Each Node Descriptor and Link Descriptor consists of one or
-        more TLVs described in the following sections. The sender of
-        an UPDATE message MUST order the TLVs within a Node, Link or
-        Prefix Descriptor in ascending order of TLV type. In BGP-LS
-        attribute, the TLVs SHOULD first be ordered in ascending order
-        of the TLV type, and then in ascending order of the TLV value
-        within the set of TLVs with the same type.
+        <t>
+	  Each Node Descriptor and Link Descriptor consists of one or
+	  more TLVs described in the following sections.
 	</t>
-
-<!-- HG> FIXME why do we need to sort on the values ?
-can you give some rationale ?
-also we should make the type ordering a bit more strict
-see MP_REACH TLVs.
-
-furthermore, in order to do binary comparision wouldn't a MUST
-be more appropriate ?
--->
 
         <section title="Node Descriptors">
           <t>Each link is anchored by a pair of Router-IDs that are
