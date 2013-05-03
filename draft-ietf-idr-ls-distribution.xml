@@ -1026,6 +1026,40 @@ just proceed with the advertised length field ? -->
             </texttable>
           </section>
 
+          <section anchor="ISISAREA"
+                   title="IS-IS Area Identifier TLV">
+            <t>An IS-IS node can be part of one or more IS-IS
+            areas. Each of these area addresses is carried in the IS-IS
+            Area Identifier TLV. If more than one Area Addresses are
+            present, multiple TLVs are used to encode them. The IS-IS
+            Area Identifier TLV may be present in the LINK_STATE
+            attribute only with the Link State Node NLRI.
+            </t>
+
+            <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |              Type             |             Length            |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //                 Area Identifier (variable)                  //
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+              </artwork>
+            </figure>
+          </section>
+
+
+          <section anchor="aux_routerid_node" title="Local IPv4/IPv6 Router-ID">
+          <t>The local IPv4/IPv6 Router-ID TLVs are used to describe
+          auxiliary Router-IDs that the IGP might be using,
+          e.g., for TE and migration purposes like correlating a Node-ID between
+	  different protocols. If there are more than one auxiliary
+          Router-ID of a given type, then multiple TLVs are used to
+          encode them.
+          </t>
+	  </section>
+
           <section anchor="OSPFSPECIFICNODE"
                    title="OSPF Specific Node Properties TLV">
             <t>The OSPF Specific Node Properties TLV is an envelope that
@@ -1077,39 +1111,6 @@ just proceed with the advertised length field ? -->
 	      </artwork>
             </figure>
           </section>
-          <section anchor="ISISAREA"
-                   title="IS-IS Area Identifier TLV">
-            <t>An IS-IS node can be part of one or more IS-IS
-            areas. Each of these area addresses is carried in the IS-IS
-            Area Identifier TLV. If more than one Area Addresses are
-            present, multiple TLVs are used to encode them. The IS-IS
-            Area Identifier TLV may be present in the LINK_STATE
-            attribute only with the Link State Node NLRI.
-            </t>
-
-            <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
-              <artwork>
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |              Type             |             Length            |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //                 Area Identifier (variable)                  //
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-              </artwork>
-            </figure>
-          </section>
-
-
-          <section anchor="aux_routerid_node" title="Local IPv4/IPv6 Router-ID">
-          <t>The local IPv4/IPv6 Router-ID TLVs are used to describe
-          auxiliary Router-IDs that the IGP might be using,
-          e.g., for TE and migration purposes like correlating a Node-ID between
-	  different protocols. If there are more than one auxiliary
-          Router-ID of a given type, then multiple TLVs are used to
-          encode them.
-          </t>
-	  </section>
         </section>
 
         <section anchor="link_attribute" title="Link Attribute TLVs">
@@ -1345,7 +1346,7 @@ IS-IS wide metric 3 octets ? -->
           </section>
 
           <section anchor="ISISLINKSPECIFIC"
-                   title="IS-IS specific link attribute TLV">
+                   title="IS-IS Specific link attribute TLV">
             <t>The IS-IS specific link attribute TLV is an envelope that
             transparently carries optional link properties TLVs advertised by an
             IS-IS router. The value field contains one or more optional IS-IS
@@ -1544,7 +1545,8 @@ IS-IS wide metric 3 octets ? -->
             forwarding address.</t>
           </section>
 
-          <section anchor="IGPSPECIFICPRFX" title="OSPF and IS-IS Specific Prefix Information">
+          <section anchor="IGPSPECIFICPRFX"
+		   title="OSPF and IS-IS Specific Prefix Information">
 
             <t>The OSPF and IS-IS Specific Prefix information TLVs contain
             prefix specific data carried in OSPF and IS-IS, respectively.  The
