@@ -1367,7 +1367,7 @@ just proceed with the advertised length field ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  IGP Flags    |
+  |D|   Reserved  |
   +-+-+-+-+-+-+-+-+
   </artwork>
             </figure>
@@ -1381,12 +1381,12 @@ just proceed with the advertised length field ? -->
               <ttcol align="left">Description</ttcol>
               <ttcol align="left">Reference</ttcol>
 
-              <c>0</c>
+              <c>'D'</c>
               <c>IS-IS Up/Down Bit</c>
               <c><xref target="RFC5305"></xref></c>
 
-              <c>1-7</c>
-              <c>RESERVED</c>
+              <c>Reserved</c>
+              <c>Reserved for future use.</c>
               <c></c>
             </texttable>
 
