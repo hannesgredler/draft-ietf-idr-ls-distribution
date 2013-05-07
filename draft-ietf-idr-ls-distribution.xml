@@ -1197,7 +1197,7 @@ just proceed with the advertised length field ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |L R            | 
+  |L|R|  Reserved | 
   +-+-+-+-+-+-+-+-+
 	      </artwork>
             </figure>
@@ -1210,15 +1210,15 @@ just proceed with the advertised length field ? -->
               <ttcol align="left">Description</ttcol>
               <ttcol align="left">Reference</ttcol>
 
-              <c>0</c>
+              <c>'L'</c>
               <c>Label Distribution Protocol (LDP)</c>
               <c><xref target="RFC5036"></xref></c>
 
-              <c>1</c>
+              <c>'R'</c>
               <c>Extension to RSVP for LSP Tunnels (RSVP-TE)</c>
               <c><xref target="RFC3209"></xref></c>
 
-              <c>2-7</c>
+              <c>'Reserved'</c>
               <c>Reserved for future use</c>
               <c></c>
             </texttable>
