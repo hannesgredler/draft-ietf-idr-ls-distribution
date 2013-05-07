@@ -978,7 +978,7 @@ just proceed with the advertised length field ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |O T E A          |  
+  |O|T|E|A| Reserved|  
   +-+-+-+-+-+-+-+-+-+
 	      </artwork>
             </figure>
@@ -991,23 +991,23 @@ just proceed with the advertised length field ? -->
               <ttcol align="left">Description</ttcol>
               <ttcol align="left">Reference</ttcol>
 
-              <c>0</c>
-              <c>Overload Bit (O)</c>
+              <c>'O'</c>
+              <c>Overload Bit</c>
               <c><xref target="RFC1195"></xref></c>
 
-              <c>1</c>
-              <c>Attached Bit (T)</c>
+              <c>'T'</c>
+              <c>Attached Bit</c>
               <c><xref target="RFC1195"></xref></c>
 
-              <c>2</c>
-              <c>External Bit (E)</c>
+              <c>'E'</c>
+              <c>External Bit</c>
               <c><xref target="RFC2328"></xref></c>
 
-              <c>3</c>
-              <c>ABR Bit (A)</c>
+              <c>'A'</c>
+              <c>ABR Bit</c>
               <c><xref target="RFC2328"></xref></c>
               
-              <c>4-7</c>
+              <c>Reserved</c>
               <c>Reserved for future use</c>
               <c></c>
             </texttable>
