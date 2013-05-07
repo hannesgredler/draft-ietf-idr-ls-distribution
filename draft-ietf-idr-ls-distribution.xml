@@ -945,14 +945,9 @@ just proceed with the advertised length field ? -->
             <c><xref target="NODEFLAGBITS"/></c>
 
             <c>1025</c>
-            <c>OSPF Specific Node Properties</c>
+            <c>Opaque Node Properties</c>
             <c>variable</c>
-            <c><xref target="OSPFSPECIFICNODE"/></c>
-
-            <c>1026</c>
-            <c>IS-IS Specific Node Properties</c>
-            <c>variable</c>
-            <c><xref target="ISISSPECIFICNODE"/></c>
+            <c><xref target="OPAQUENODE"/></c>
 
             <c>1027</c>
             <c>IS-IS Area Identifier</c>
@@ -1052,53 +1047,33 @@ just proceed with the advertised length field ? -->
           </t>
 	  </section>
 
-          <section anchor="OSPFSPECIFICNODE"
-                   title="OSPF Specific Node Properties TLV">
-            <t>The OSPF Specific Node Properties TLV is an envelope that
-            transparently carries optional node properties TLVs advertised by an
-            OSPF router. The value field contains one or more optional OSPF node
-            property TLVs, such as the OSPF Router Informational Capabilities
-            TLV defined in <xref target="RFC4970"></xref>, or the OSPF TE Node
+          <section anchor="OPAQUENODE"
+                   title="Opaque Node Attribute TLV">
+            <t>The Opaque Node attribute TLV is an envelope that
+            transparently carries optional node attribute TLVs advertised by a
+            router. An originating router shall use this TLV
+            for encoding information specific to the protocol advertised
+	    in the NLRI header Protocol-ID field or new protocol extensions
+	    (again to the protocol as advertised in the NLRI header
+	    Protocol-ID field) for which there is no protocol neutral
+	    representation in the BGP link-state NLRI.
+
+	    A router for example could use this extension in order to
+	    advertise the native protocols node attribute TLVs,
+	    such as the OSPF Router Informational Capabilities
+            TLV defined in <xref target="RFC4970"></xref>, or the IGP TE Node
             Capability Descriptor TLV described in <xref
-            target="RFC5073"></xref>. An originating router shall use this TLV
-            for encoding information specific to the OSPF protocol or new OSPF
-            extensions for which there is no protocol neutral representation in
-            the BGP link-state NLRI.</t>
+            target="RFC5073"></xref>. </t>
 
-            <figure anchor="optional_ospf_node-property_tlv"
-                    title="OSPF specific Node property format">
+            <figure anchor="optional_opaque_node-attribute_tlv"
+                    title="Opaque Node attribute format">
               <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //           OSPF specific node properties (variable)          //
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-	      </artwork>
-            </figure>
-          </section>
-
-          <section anchor="ISISSPECIFICNODE"
-                   title="IS-IS Specific Node Properties TLV">
-            <t>The IS-IS Router Specific Node Properties TLV is an envelope that
-            transparently carries optional node specific TLVs advertised by an
-            IS-IS router. The value field contains one or more optional IS-IS
-            node property TLVs, such as the IS-IS TE Node Capability Descriptor
-            TLV described in <xref target="RFC5073"></xref>. An originating
-            router shall use this TLV for encoding information specific to the
-            IS-IS protocol or new IS-IS extensions for which there is no
-            protocol neutral representation in the BGP link-state NLRI.</t>
-
-            <figure anchor="optional_isis_node_property_tlv"
-                    title="IS-IS specific Node property format">
-              <artwork>
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |              Type             |             Length            | 
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //          IS-IS specific node properties (variable)          //
+  //               Opaque node attributes (variable)             //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	      </artwork>
             </figure>
@@ -1195,14 +1170,9 @@ just proceed with the advertised length field ? -->
             <c><xref target="SRLGTLV"></xref></c>
 
             <c>1097</c>
-            <c>OSPF specific link attribute</c>
+            <c>Opaque link attribute</c>
             <c>---</c>
-            <c><xref target="OSPFLINKSPECIFIC"></xref></c>
-
-            <c>1098</c>
-            <c>IS-IS Specific Link Attribute</c>
-            <c>---</c>
-            <c><xref target="ISISLINKSPECIFIC"></xref></c>
+            <c><xref target="OPAQUELINK"></xref></c>
           </texttable>
           <section anchor="aux_routerid_link" title="IPv4/IPv6 Router-ID">
             <t>The local/remote IPv4/IPv6 Router-ID TLVs are used to
@@ -1312,49 +1282,27 @@ just proceed with the advertised length field ? -->
             single TLV.</t>
           </section>
 
-          <section anchor="OSPFLINKSPECIFIC"
-                   title="OSPF Specific Link Attribute TLV">
-            <t>The OSPF specific link attribute TLV is an envelope that
-            transparently carries optional link properties TLVs advertised by an
-            OSPF router. The value field contains one or more optional OSPF link
-            attribute TLVs. An originating router shall use this TLV for
-            encoding information specific to the OSPF protocol or new OSPF
-            extensions for which there is no protocol neutral representation in
-            the BGP link-state NLRI.</t>
+          <section anchor="OPAQUELINK"
+                   title="Opaque Link Attribute TLV">
+            <t>The Opaque link attribute TLV is an envelope that
+            transparently carries optional link atrribute TLVs advertised by a
+            router. An originating router shall use this TLV
+            for encoding information specific to the protocol advertised
+	    in the NLRI header Protocol-ID field or new protocol extensions
+	    (again to the protocol as advertised in the NLRI header Protocol-ID field)
+	    for which there is no protocol neutral
+	    representation in the BGP link-state NLRI.
+	    </t>
 
-            <figure anchor="OSPFLINKSPECIFICTLV"
-                    title="OSPF specific link attribute format">
+            <figure anchor="OPAQUELINKTLV"
+                    title="Opaque link attribute format">
               <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //           OSPF specific link attributes (variable)          //
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-              </artwork>
-            </figure>
-          </section>
-
-          <section anchor="ISISLINKSPECIFIC"
-                   title="IS-IS Specific link attribute TLV">
-            <t>The IS-IS specific link attribute TLV is an envelope that
-            transparently carries optional link properties TLVs advertised by an
-            IS-IS router. The value field contains one or more optional IS-IS
-            link attribute TLVs. An originating router shall use this TLV for
-            encoding information specific to the IS-IS protocol or new IS-IS
-            extensions for which there is no protocol neutral representation in
-            the BGP link-state NLRI.</t>
-
-            <figure anchor="ISISLINKSPECIFICTLV"
-                    title="IS-IS specific link attribute format">
-              <artwork>
-   0                   1                   2                   3
-   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |              Type             |             Length            | 
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //          IS-IS specific link attributes (variable)          //
+  //                Opaque link attributes (variable)            //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
             </figure>
@@ -1402,14 +1350,9 @@ just proceed with the advertised length field ? -->
             <c><xref target="RFC2328"></xref></c>
 
             <c>1157</c>
-            <c>OSPF Specific Prefix Attribute</c>
+            <c>Opaque Prefix Attribute</c>
             <c>variable</c>
-            <c><xref target="IGPSPECIFICPRFX"></xref></c>
-
-            <c>1158</c>
-            <c>IS-IS Specific Prefix Attribute</c>
-            <c>variable</c>
-            <c><xref target="IGPSPECIFICPRFX"></xref></c>
+            <c><xref target="OPAQUEPREFIX"></xref></c>
           </texttable>
 
           <section anchor="IGPFLAGS" title="IGP Flags TLV">
@@ -1536,25 +1479,30 @@ just proceed with the advertised length field ? -->
             forwarding address.</t>
           </section>
 
-          <section anchor="IGPSPECIFICPRFX"
-		   title="OSPF and IS-IS Specific Prefix Information">
+          <section anchor="OPAQUEPREFIX"
+		   title="Opaque Prefix Attribute TLV">
 
-            <t>The OSPF and IS-IS Specific Prefix information TLVs contain
-            prefix specific data carried in OSPF and IS-IS, respectively.  The
-            format of the TLV is as follows:</t>
+            <t>The Opaque Prefix attribute TLV is an envelope that
+            transparently carries optional prefix attribute TLVs advertised by a
+            router. An originating router shall use this TLV
+            for encoding information specific to the protocol advertised
+	    in the NLRI header Protocol-ID field or new protocol extensions
+	    (again to the protocol as advertised in the NLRI header Protocol-ID field)
+	    for which there is no protocol neutral
+	    representation in the BGP link-state NLRI.
+	    </t>
 
-<!--HG> can you give some examples what would be specific to a prefix -
-what kind of data to expect here ? -->
+            <t>The format of the TLV is as follows:</t>
 
-            <figure anchor="IGPSPECIFICPRFXTLV"
-                    title="OSPF and IS-IS Prefix Specific Data TLV Format">
+            <figure anchor="OPAQUEPREFIXTLV"
+                    title="Opaque Prefix Attribute TLV Format">
               <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //              Prefix Specific Data  (variable)               // 
+  //              Opaque Prefix Attributes  (variable)           // 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
             </figure>
@@ -1995,14 +1943,9 @@ what kind of data to expect here ? -->
         <c><xref target="NODEFLAGBITS"></xref></c>
 
         <c>1025</c>
-        <c>OSPF Specific Node Properties</c>
+        <c>Opaque Node Properties</c>
         <c>---</c>
-        <c><xref target="OSPFSPECIFICNODE"></xref></c>
-
-        <c>1026</c>
-        <c>IS-IS Specific Node Properties</c>
-        <c>---</c>
-        <c><xref target="ISISSPECIFICNODE"></xref></c>
+        <c><xref target="OPAQUENODE"></xref></c>
 
         <c>1027</c>
         <c>IS-IS Area Identifier</c>
@@ -2077,14 +2020,9 @@ what kind of data to expect here ? -->
         <c><xref target="SRLGTLV"></xref></c>
 
         <c>1097</c>
-        <c>OSPF specific link attribute</c>
+        <c>Opaque link attribute</c>
         <c>---</c>
-        <c><xref target="OSPFLINKSPECIFIC"></xref></c>
-
-        <c>1098</c>
-        <c>IS-IS Specific Link Attribute</c>
-        <c>---</c>
-        <c><xref target="ISISLINKSPECIFIC"></xref></c>
+        <c><xref target="OPAQUELINK"></xref></c>
 
         <!-- Prefix Attributes TLVs -->
 
@@ -2114,15 +2052,9 @@ what kind of data to expect here ? -->
         <c><xref target="RFC2328"></xref></c>
 
         <c>1157</c>
-        <c>OSPF Specific Prefix Attribute</c>
+        <c>Opaque Prefix Attribute</c>
         <c>---</c>
-        <c><xref target="IGPSPECIFICPRFX"></xref></c>
-
-        <c>1158</c>
-        <c>IS-IS Specific Prefix Attribute</c>
-        <c>---</c>
-        <c><xref target="IGPSPECIFICPRFX"></xref></c>
-
+        <c><xref target="OPAQUEPREFIX"></xref></c>
       </texttable>
     </section>
 
