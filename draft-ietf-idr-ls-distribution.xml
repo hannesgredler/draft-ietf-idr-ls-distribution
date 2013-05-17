@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-idr-ls-distribution-04"
+<rfc category="std" docName="draft-ietf-idr-ls-distribution-03"
      ipr="trust200902">
   <front>
     <title abbrev="Link-State Info Distribution using BGP">North-Bound
@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="7" month="May" year="2013"/>
+    <date day="17" month="May" year="2013"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -949,6 +949,11 @@ just proceed with the advertised length field ? -->
             <c>variable</c>
             <c><xref target="OPAQUENODE"/></c>
 
+            <c>1026</c>
+            <c>Node Name</c>
+            <c>variable</c>
+            <c><xref target="NODENAME"/></c>
+
             <c>1027</c>
             <c>IS-IS Area Identifier</c>
             <c>variable</c>
@@ -1033,6 +1038,45 @@ just proceed with the advertised length field ? -->
   //                 Area Identifier (variable)                  //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
               </artwork>
+            </figure>
+          </section>
+
+          <section anchor="NODENAME"
+                   title="Node Name TLV">
+	    <t>The Node Name TLV is optional. Its structure and encoding
+	    has been borrowed from <xref target="RFC5301"/>.
+	    The value field identifies the symbolic name of the router node.
+	    This symbolic name can be the FQDN for the router, it can be a
+	    subset of the FQDN, or it can be any string operators want to
+	    use for the router. The use of FQDN or a subset of it is
+	    strongly recommended.
+	    </t>
+
+	    <t>
+	    The Value field is encoded in 7-bit ASCII.  If a user-interface for
+	    configuring or displaying this field permits Unicode characters, that
+	    user-interface is responsible for applying the ToASCII and/or
+	    ToUnicode algorithm as described in <xref target="RFC3490"/>
+	    to achieve the correct format for transmission or display.
+	    </t>
+
+	    <t>Altough <xref target="RFC5301"/> is a IS-IS specific extension,
+	    usage of the Node Name TLV is possible for all protocols. How
+	    a router derives and injects node names for e.g. OSPF nodes,
+	    is outside of the scope of this document.
+	    </t>
+
+            <figure anchor="optional-node-name-tlv"
+                    title="Node Name format">
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |              Type             |             Length            | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //                     Node Name (variable)                    //
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	      </artwork>
             </figure>
           </section>
 
@@ -1947,6 +1991,11 @@ just proceed with the advertised length field ? -->
         <c>---</c>
         <c><xref target="OPAQUENODE"></xref></c>
 
+	<c>1026</c>
+	<c>Node Name</c>
+	<c>variable</c>
+	<c><xref target="NODENAME"/></c>
+
         <c>1027</c>
         <c>IS-IS Area Identifier</c>
         <c>variable</c>
@@ -2094,12 +2143,14 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2328.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3209.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3490.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4202.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4271.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4760.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4915.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5036.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5120.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5301.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5305.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5226.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5307.xml"?>
