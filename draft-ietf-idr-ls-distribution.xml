@@ -1217,6 +1217,11 @@ just proceed with the advertised length field ? -->
             <c>Opaque link attribute</c>
             <c>---</c>
             <c><xref target="OPAQUELINK"></xref></c>
+
+            <c>1098</c>
+            <c>Link Name attribute</c>
+            <c>---</c>
+            <c><xref target="LINKNAME"></xref></c>
           </texttable>
           <section anchor="aux_routerid_link" title="IPv4/IPv6 Router-ID">
             <t>The local/remote IPv4/IPv6 Router-ID TLVs are used to
@@ -1351,6 +1356,43 @@ just proceed with the advertised length field ? -->
               </artwork>
             </figure>
           </section>
+
+          <section anchor="LINKNAME"
+                   title="Link Name TLV">
+	    <t>The Link Name TLV is optional.
+	    The value field identifies the symbolic name of the router link.
+	    This symbolic name can be the FQDN for the link, it can be a
+	    subset of the FQDN, or it can be any string operators want to
+	    use for the link. The use of FQDN or a subset of it is
+	    strongly recommended.
+	    </t>
+
+	    <t>
+	    The Value field is encoded in 7-bit ASCII.  If a user-interface for
+	    configuring or displaying this field permits Unicode characters, that
+	    user-interface is responsible for applying the ToASCII and/or
+	    ToUnicode algorithm as described in <xref target="RFC3490"/>
+	    to achieve the correct format for transmission or display.
+	    </t>
+
+	    <t>How a router derives and injects link names
+	    is outside of the scope of this document.
+	    </t>
+
+            <figure anchor="optional-link-name-tlv"
+                    title="Link Name format">
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |              Type             |             Length            | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //                     Link Name (variable)                    //
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	      </artwork>
+            </figure>
+          </section>
+
         </section>
 
         <section title="Prefix Attribute TLVs">
@@ -2072,6 +2114,11 @@ just proceed with the advertised length field ? -->
         <c>Opaque link attribute</c>
         <c>---</c>
         <c><xref target="OPAQUELINK"></xref></c>
+
+	<c>1098</c>
+	<c>Link Name attribute</c>
+	<c>---</c>
+	<c><xref target="LINKNAME"></xref></c>
 
         <!-- Prefix Attributes TLVs -->
 
