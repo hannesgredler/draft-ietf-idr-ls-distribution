@@ -100,7 +100,7 @@
       engineering information can be collected from networks and shared with
       external components using the BGP routing protocol. This is achieved
       using a new BGP Network Layer Reachability Information (NLRI) encoding
-      format. The mechanism is applicable to physical and virtual links. The
+      format. The mechanism is applicable to physical and virtual IGP links. The
       mechanism described is subject to policy control.</t>
 
       <t>Applications of this technique include Application Layer Traffic
@@ -434,7 +434,7 @@
   |                           Identifier                          |
   |                            (64 bits)                          |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Local Node Descriptors (variable)              |
+  //                Local Node Descriptors (variable)            //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
         </figure>
@@ -451,11 +451,11 @@
   |                           Identifier                          |
   |                            (64 bits)                          |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+       
-  |                Local Node Descriptors (variable)              |
+  //               Local Node Descriptors (variable)             //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                Remote Node Descriptors (variable)             |
+  //               Remote Node Descriptors (variable)            //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                   Link Descriptors (variable)                 |
+  //                  Link Descriptors (variable)                //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
         </figure>
@@ -474,9 +474,9 @@
   |                           Identifier                          |
   |                            (64 bits)                          |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |               Local Node Descriptor (variable)                |
+  //              Local Node Descriptor (variable)               //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |                 Prefix Descriptors (variable)                 |
+  //                Prefix Descriptors (variable)                //
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	  </artwork>
         </figure>
@@ -506,11 +506,28 @@
         <t>Both OSPF and IS-IS may run multiple routing protocol
         instances over the same link. See <xref
         target="RFC6822"></xref> and <xref
-        target="RFC6549"></xref>. The 64-Bit 'Identifier' field is
-        used to associate the NLRI to an IGP routing instance and
-        domain.
+        target="RFC6549"></xref>. These instances define independent
+        "routing universes". The 64-Bit 'Identifier' field is
+        used to identify the "routing universe" where the NLRI belongs.
+        The NLRIs representing IGP objects (nodes, links or prefixes)
+        from the same routing universe MUST have the same 'Identifier'
+        value; NLRIs with different 'Identifier' values MUST be considered
+        to be from different routing universes.
+        Table <xref target="well_known_instances"></xref> lists the 
+        'Identifier' values that are defined as well-known in this draft.
 	</t>
-
+        <texttable anchor="well_known_instances"
+                   title="Well-known Instance Identifiers">
+          <ttcol align="center">Identifier</ttcol>
+          <ttcol align="left">Routing Universe</ttcol>
+	  
+          <c>0</c>
+          <c>L3 packet topology</c>
+	  
+          <c>1</c>
+          <c>L1 optical topology</c>
+        </texttable>
+	
         <t>
 	  Each Node Descriptor and Link Descriptor consists of one or
 	  more TLVs described in the following sections.
@@ -586,7 +603,7 @@
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |                                                               |
-  |               Node Descriptor Sub-TLVs (variable)             |
+  //              Node Descriptor Sub-TLVs (variable)            //
   |                                                               |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	      </artwork>
@@ -653,7 +670,7 @@
               Number)</t>
 	      
               <t hangText="BGP-LS Identifier:">opaque value (32 Bit
-              ID). In conjuction with ASN, uniquely identifies the
+              ID). In conjunction with ASN, uniquely identifies the
               BGP-LS domain. The combination of ASN and BGP-LS ID MUST
               be globally unique. All BGP-LS speakers within an IGP
               flooding-set (set of IGP nodes within which an LSP/LSA
@@ -718,9 +735,11 @@ just proceed with the advertised length field ? -->
             target="RFC5120">RFC5120, Section 7.2</xref>.  Semantics of the OSPF
             MT-ID are defined in <xref target="RFC4915">RFC4915,
             Section 3.7</xref>. If the value in the MT-ID TLV is
-            derived from OSPF, then the upper 9 bits MUST be set to 0.</t>
+            derived from OSPF, then the upper 9 bits MUST be set to 0.
+            Bits R are reserved, SHOULD be set to 0 when originated and
+            ignored on receipt.</t>
 
-            <t>The format of the MT-ID ID TLV is shown in the following
+            <t>The format of the MT-ID TLV is shown in the following
             figure.
 	    </t>
 
@@ -867,7 +886,7 @@ just proceed with the advertised length field ? -->
 
             <t>where the Type and Length fields of the TLV are defined in
             <xref target="table_prefix_descriptor_tlv"/>. The OSPF Route Type
-            field values are defined in the OSPF protocol, and can be on of
+            field values are defined in the OSPF protocol, and can be one of
             the following:
 
             <list style="hanging">
@@ -1085,9 +1104,8 @@ just proceed with the advertised length field ? -->
           <t>The local IPv4/IPv6 Router-ID TLVs are used to describe
           auxiliary Router-IDs that the IGP might be using,
           e.g., for TE and migration purposes like correlating a Node-ID between
-	  different protocols. If there are more than one auxiliary
-          Router-ID of a given type, then multiple TLVs are used to
-          encode them.
+	  different protocols. If there is more than one auxiliary
+          Router-ID of a given type, then each one is encoded in its own TLV.
           </t>
 	  </section>
 
@@ -1291,7 +1309,7 @@ just proceed with the advertised length field ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |       IGP Link Metric (variable length)       | 
+  //      IGP Link Metric (variable length)      // 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	      </artwork>
             </figure>
@@ -1413,27 +1431,27 @@ just proceed with the advertised length field ? -->
             <c>1152</c>
             <c>IGP Flags</c>
             <c>1</c>
-            <c><xref target="IGPFLAGSTLV"></xref></c>
+            <c><xref target="IGPFLAGS"></xref></c>
 
             <c>1153</c>
             <c>Route Tag</c>
             <c>4*n</c>
-            <c><xref target="RFC5130"></xref></c>
+            <c><xref target="route_tag"></xref></c>
 
             <c>1154</c>
             <c>Extended Tag</c>
             <c>8*n</c>
-            <c><xref target="RFC5130"></xref></c>
+            <c><xref target="ext_route_tag"></xref></c>
 
             <c>1155</c>
             <c>Prefix Metric</c>
             <c>4</c>
-            <c><xref target="RFC5305"></xref></c>
+            <c><xref target="prefix_metric"></xref></c>
 
             <c>1156</c>
             <c>OSPF Forwarding Address</c>
             <c>4</c>
-            <c><xref target="RFC2328"></xref></c>
+            <c><xref target="ospf_fwd_addr"></xref></c>
 
             <c>1157</c>
             <c>Opaque Prefix Attribute</c>
@@ -1478,9 +1496,10 @@ just proceed with the advertised length field ? -->
 
           </section>
 
-          <section title="Route Tag">
-            <t>Route Tag TLV carries original IGP TAGs (IS-IS or OSPF) of
-            the prefix and is encoded as follows:</t>
+          <section anchor="route_tag" title="Route Tag">
+            <t>Route Tag TLV carries original IGP TAGs (IS-IS <xref
+            target="RFC5130"></xref> or OSPF) of the prefix and is
+            encoded as follows:</t>
 
             <figure anchor="IGPROUTETAG" title="IGP Route TAG TLV format">
               <artwork>
@@ -1500,9 +1519,10 @@ just proceed with the advertised length field ? -->
             IGP topology.</t>
           </section>
 
-          <section title="Extended Route Tag">
-            <t>Extended Route Tag TLV carries IS-IS Extended Route TAGs of
-            the prefix and is encoded as follows:</t>
+          <section anchor="ext_route_tag" title="Extended Route Tag">
+            <t>Extended Route Tag TLV carries IS-IS Extended Route
+            TAGs of the prefix <xref target="RFC5130"></xref> and is
+            encoded as follows:</t>
 
             <figure anchor="IGPEXTROUTETAG"
                     title="Extended IGP Route TAG TLV format">
@@ -1523,10 +1543,10 @@ just proceed with the advertised length field ? -->
             Route Tags as learned in the IGP topology.</t>
           </section>
 
-          <section title="Prefix Metric TLV">
-            <t>Prefix Metric TLV carries the metric of the prefix as known in
-            the IGP topology. The attribute is mandatory and can only appear
-            once.</t>
+          <section anchor="prefix_metric" title="Prefix Metric TLV">
+            <t>Prefix Metric TLV carries the metric of the prefix as
+            known in the IGP topology <xref target="RFC5305"></xref>.
+            The attribute is mandatory and can only appear once.</t>
 
             <figure anchor="PREFIXMETRIC" title="Prefix Metric TLV Format">
               <artwork>
@@ -1543,10 +1563,12 @@ just proceed with the advertised length field ? -->
             <t>Length is 4.</t>
           </section>
 
-          <section title="OSPF Forwarding Address TLV">
-            <t>OSPF Forwarding Address TLV carries the OSPF forwarding address
-            as known in the original OSPF advertisement. Forwarding address
-            can be either IPv4 or IPv6.</t>
+          <section anchor="ospf_fwd_addr" title="OSPF Forwarding Address TLV">
+            <t>OSPF Forwarding Address TLV <xref
+            target="RFC2328"></xref> carries the OSPF forwarding
+            address as known in the original OSPF
+            advertisement. Forwarding address can be either IPv4 or
+            IPv6.</t>
 
             <figure anchor="OSPFFORWADDR"
                     title="OSPF Forwarding Address TLV Format">
@@ -1615,7 +1637,7 @@ just proceed with the advertised length field ? -->
         the next hop length is 32, then there is one global IPv6
         address followed by a link-local IPv6 address. The link-local
         IPv6 address should be used as described in <xref
-        target="RFC2545"></xref>. For VPN safi, as per custom, an 8 byte
+        target="RFC2545"></xref>. For VPN SAFI, as per custom, an 8 byte
         route-distinguisher set to all zero is prepended to the next hop.
 	</t>
 
@@ -1643,23 +1665,23 @@ just proceed with the advertised length field ? -->
 	pseudonode) routers have both an IPv4 Router-ID and IS-IS
 	Node-ID. The pseudonode does not have an IPv4
 	Router-ID. Node1 is the DIS for the LAN. Two
-	unidirectional links (Node1, Pseudonode 1) and (Pseudonode
-	1, Node 2) are being generated.</t>
+	unidirectional links (Node1, Pseudonode 1) and (Pseudonode1, 
+        Node2) are being generated.</t>
 
 	<t>The link NRLI of (Node1, Pseudonode1) is encoded as
 	follows: the IGP Router-ID TLV of the local node
-	descriptor is 6 octet long containing ISO-ID of Node1,
+	descriptor is 6 octets long containing ISO-ID of Node1,
 	1920.0000.2001; the IGP Router-ID TLV of the remote node
-	descriptor is 7 octet long containing the ISO-ID of
+	descriptor is 7 octets long containing the ISO-ID of
 	Pseudonode1, 1920.0000.2001.02. The BGP-LS attribute of
 	this link contains one local IPv4 Router-ID TLV (TLV type
 	1028) containing 192.0.2.1, the IPv4 Router-ID of Node1.
 	</t>
 	<t>The link NRLI of (Pseudonode1. Node2) is encoded as
 	follows: the IGP Router-ID TLV of the local node
-	descriptor is 7 octet long containing the ISO-ID of
+	descriptor is 7 octets long containing the ISO-ID of
 	Pseudonode1, 1920.0000.2001.02; the IGP Router-ID TLV of
-	the remote node descriptor is 6 octet long containing
+	the remote node descriptor is 6 octets long containing
 	ISO-ID of Node2, 1920.0000.2002. The BGP-LS attribute of
 	this link contains one remote IPv4 Router-ID TLV (TLV type
 	1030) containing 192.0.2.2, the IPv4 Router-ID of Node2.
@@ -1668,7 +1690,7 @@ just proceed with the advertised length field ? -->
 	<figure anchor="ISISPseudonodes" title="IS-IS Pseudonodes">
           <artwork>
   +-----------------+    +-----------------+    +-----------------+
-  |      Node1      |    |   Pseudonode 1  |    |      Node2      |
+  |      Node1      |    |   Pseudonode1   |    |      Node2      |
   |1920.0000.2001.00|---&gt;|1920.0000.2001.02|---&gt;|1920.0000.2002.00|
   |     192.0.2.1   |    |                 |    |     192.0.2.2   |
   +-----------------+    +-----------------+    +-----------------+
@@ -1729,7 +1751,7 @@ just proceed with the advertised length field ? -->
         that the decision if the direct link between {R3, R4} or the {R4, R5,
         R3) path is used is made by the computing router.</t>
 
-        <figure anchor="no-link-aggregation" title="no-link-aggregation">
+        <figure anchor="no-link-aggregation" title="No link aggregation">
           <artwork>
        AS1   :   AS2
              :
@@ -1752,7 +1774,7 @@ just proceed with the advertised length field ? -->
         enough to tell AS1 that there is a backup path. However the actual
         links being used are hidden from the topology.</t>
 
-        <figure anchor="asbr-link-aggregation" title="asbr-link-aggregation">
+        <figure anchor="asbr-link-aggregation" title="ASBR link aggregation">
           <artwork>
        AS1   :   AS2
              :
@@ -1772,7 +1794,7 @@ just proceed with the advertised length field ? -->
         not expose their internal inter-AS links. Consider <xref
         target="multi-as-aggregation"></xref>. AS3 is modeled as a single node
         which connects to the border routers of the aggregated domain. <figure
-        anchor="multi-as-aggregation" title="multi-as-aggregation">
+        anchor="multi-as-aggregation" title="Multi-AS aggregation">
         <artwork>
        AS1   :   AS2   :   AS3 
              :         :
@@ -1817,12 +1839,12 @@ just proceed with the advertised length field ? -->
       <section anchor="Operational-Considerations"
                title="Operational Considerations">
         <section anchor="Operations" title="Operations">
-          <t>Existing BGP operation procedures apply. No new operation
+          <t>Existing BGP operational procedures apply. No new operation
           procedures are defined in this document. It is noted that the
           NLRI information present in this document purely carries application
-          level data that have no immediate corresponding forwarding state
+          level data that has no immediate corresponding forwarding state
           impact. As such, any churn in reachability information has different
-          impact than regular BGP update which needs to change forwarding state
+          impact than regular BGP updates which need to change forwarding state
           for an entire router. Furthermore it is anticipated that distribution
           of this NLRI will be handled by dedicated route-reflectors providing a
           level of isolation and fault-containment between different NLRI
@@ -1902,6 +1924,9 @@ just proceed with the advertised length field ? -->
           <t>An implementation SHOULD allow the operator to create abstracted
           topologies that are advertised to neighbors; Create different
           abstractions for different neighbors.</t>
+
+          <t>An implementation SHOULD allow the operator to configure a 64-bit
+          instance ID.</t>
 
           <t>An implementation SHOULD allow the operator to configure a pair
           of ASN and BGP-LS identifier per flooding set the node participates
