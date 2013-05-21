@@ -1116,8 +1116,8 @@ just proceed with the advertised length field ? -->
             router. An originating router shall use this TLV
             for encoding information specific to the protocol advertised
 	    in the NLRI header Protocol-ID field or new protocol extensions
-	    (again to the protocol as advertised in the NLRI header
-	    Protocol-ID field) for which there is no protocol neutral
+	    to the protocol as advertised in the NLRI header
+	    Protocol-ID field for which there is no protocol neutral
 	    representation in the BGP link-state NLRI.
 
 	    A router for example could use this extension in order to
@@ -1356,7 +1356,7 @@ just proceed with the advertised length field ? -->
             router. An originating router shall use this TLV
             for encoding information specific to the protocol advertised
 	    in the NLRI header Protocol-ID field or new protocol extensions
-	    (again to the protocol as advertised in the NLRI header Protocol-ID field)
+	    to the protocol as advertised in the NLRI header Protocol-ID field
 	    for which there is no protocol neutral
 	    representation in the BGP link-state NLRI.
 	    </t>
@@ -1595,7 +1595,7 @@ just proceed with the advertised length field ? -->
             router. An originating router shall use this TLV
             for encoding information specific to the protocol advertised
 	    in the NLRI header Protocol-ID field or new protocol extensions
-	    (again to the protocol as advertised in the NLRI header Protocol-ID field)
+	    to the protocol as advertised in the NLRI header Protocol-ID field
 	    for which there is no protocol neutral
 	    representation in the BGP link-state NLRI.
 	    </t>
