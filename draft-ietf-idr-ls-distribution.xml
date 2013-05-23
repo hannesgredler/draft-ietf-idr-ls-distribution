@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="21" month="May" year="2013"/>
+    <date day="23" month="May" year="2013"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -2180,15 +2180,36 @@ just proceed with the advertised length field ? -->
     </section>
 
     <section anchor="Security" title="Security Considerations">
-      <t>Procedures and protocol extensions defined in this document
-      do not affect the BGP security model. See <xref
-      target="I-D.ietf-karp-routing-tcp-analysis"></xref> for
-      details.</t>
+      <t>Procedures and protocol extensions defined in this document do not
+      affect the BGP security model. See the 'Security Considerations'
+      section of <xref target="RFC4271"/> for a discussion of BGP security.
+      Also refer to <xref target="RFC4272"/> and
+      <xref target="I-D.ietf-karp-routing-tcp-analysis"/>
+      for analysis of security issues for BGP.</t>
 
-      <t>A BGP Speaker SHOULD NOT accept updates from a Consumer peer.</t>
-      
+      <t>In the context of the BGP peerings associated with this document, a
+      BGP Speaker SHOULD NOT accept updates from a Consumer peer.  That is,
+      a participating BGP Speaker, should be aware of the nature of its
+      relationships for link state relationships and should protect itself
+      from peers sending updates that either represent erroneous
+      information feedback loops, or are false input.  Such protection can
+      be achieved by manual configuration of Consumer peers at the BGP
+      Speaker.</t>
+
       <t>An operator SHOULD employ a mechanism to protect a BGP Speaker
-      against DDOS attacks from Consumers.</t>
+      against DDOS attacks from Consumers.  The principal attack a consumer
+      may apply is to attempt to start multiple sessions either
+      sequentially or simultaneously.  Protection can be applied by 
+      imposing rate limits.</t>
+
+      <t>Additionally, it may be considered that the export of link state and
+      TE information as described in this document constitutes a risk to 
+      confidentiality of mission-critical or commercially-sensitive 
+      information about the network.  BGP peerings are not automatic and
+      require configuration, thus it is the responsibility of the network
+      operator to ensure that only trusted Consumers are configured to 
+      receive such information.
+      </t>
     </section>
 
     <section anchor="Contributors" title="Contributors">
@@ -2218,6 +2239,7 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3490.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4202.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4271.xml"?>
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4272.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4760.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4915.xml"?>
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5036.xml"?>
