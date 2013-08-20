@@ -1651,10 +1651,10 @@ just proceed with the advertised length field ? -->
         <t>The main source of TE information is the IGP, which is not
         active on inter-AS links. In some cases, the IGP may have
         information of inter-AS links (<xref target="RFC5392"></xref>,
-        <xref target="RFC5316"></xref>). In other cases, for injecting
-        a non-IGP enabled link into the BGP link-state RIB, an
-        implementation MUST support configuration of either 'Static'
-	or 'Direct' links.</t>
+        <xref target="RFC5316"></xref>). In other cases, an implementation
+        SHOULD provide a means to inject inter-AS links into BGP-LS. The exact
+        mechanism used to provision the inter-AS links is outside the scope of
+        this document</t>
       </section>
 
       <section title="Router-ID Anchoring Example: ISO Pseudonode">
