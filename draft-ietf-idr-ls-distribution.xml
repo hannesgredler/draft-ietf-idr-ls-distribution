@@ -331,7 +331,6 @@
         target="TLV-figure"></xref>.</t>
 
         <t>
-          <vspace blankLines="999"/>
           <figure anchor="TLV-figure" title="TLV format">
           <artwork>
    0                   1                   2                   3
@@ -726,7 +725,6 @@ just proceed with the advertised length field ? -->
             </t>
 
             <t>
-              <vspace blankLines="999"/>
               <figure anchor="MTIDTLV" title="Multi-Topology ID TLV format">
                 <artwork>
    0                   1                   2                   3
@@ -778,10 +776,6 @@ just proceed with the advertised length field ? -->
           <t>The following TLVs are valid as Link Descriptors in the Link
           NLRI:</t>
           
-          <t>
-            <vspace blankLines="999"/>
-          </t>
-
           <texttable anchor="table_link_descriptor_tlv"
                      title="Link Descriptor TLVs">
             <ttcol align="center">TLV Code Point</ttcol>
@@ -850,10 +844,6 @@ just proceed with the advertised length field ? -->
             <c><xref target="IPREACHINFO"/></c>
           </texttable>
 
-          <t>
-            <vspace blankLines="999"/>
-          </t>
-
           <section anchor="OSPFRTETYPE" title="OSPF Route Type">
             <t> OSPF Route Type is an optional TLV that MAY be present in Prefix
             NLRIs. It is used to identify the OSPF route-type of the prefix. It
@@ -900,7 +890,6 @@ just proceed with the advertised length field ? -->
             following figure:</t>
 	    
             <t>
-              <vspace blankLines="999"/>
               <figure anchor="IPREACHABILITYTLV" title="IP Reachability Information TLV Format">
                 <artwork>
    0                   1                   2                   3
@@ -938,10 +927,6 @@ just proceed with the advertised length field ? -->
           <t>Node attribute TLVs are the TLVs that may be encoded in the BGP-LS
           attribute with a node NLRI.  The following node attribute TLVs are
           defined:</t>
-
-          <t>
-            <vspace blankLines="999"/>
-          </t>  
 
           <texttable anchor="node-attribute_tlv" title="Node Attribute TLVs">
             <ttcol align="center">TLV Code Point</ttcol>
@@ -1404,10 +1389,6 @@ just proceed with the advertised length field ? -->
           Attributes TLVs SHOULD be used when advertising NLRI types 3 and 4
           only. The following attributes TLVs are defined:</t>
 
-          <t>
-            <vspace blankLines="999"/>
-          </t>
-
           <texttable anchor="prefix-attribute_tlv"
                      title="Prefix Attribute TLVs">
             <ttcol align="center">TLV Code Point</ttcol>
@@ -1480,9 +1461,6 @@ just proceed with the advertised length field ? -->
               <c></c>
             </texttable>
 
-            <t>
-              <vspace blankLines="999"/>
-            </t>
           </section>
 
           <section anchor="route_tag" title="Route Tag">
@@ -1537,7 +1515,6 @@ just proceed with the advertised length field ? -->
             mandatory and can only appear once.</t>
 
             <t>
-              <vspace blankLines="999"/>
               <figure anchor="PREFIXMETRIC" title="Prefix Metric TLV Format">
                 <artwork>
    0                   1                   2                   3
@@ -1586,10 +1563,6 @@ just proceed with the advertised length field ? -->
             field or new protocol extensions to the protocol as advertised in
             the NLRI header Protocol-ID field for which there is no protocol
             neutral representation in the BGP link-state NLRI.
-            </t>
-
-            <t>
-              <vspace blankLines="999"/>
             </t>
 
             <t>The format of the TLV is as follows:</t>
