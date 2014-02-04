@@ -684,13 +684,12 @@
               identifier (7 octet in total).  For an OSPFv2 or OSPFv3
               non-"Pseudonode", this contains 4 octet Router-ID.  For an OSPFv2
               "Pseudonode" representing a LAN, this contains 4 octet Router-ID
-              of the designated router (DR) followed by 4 octet IPv4 address of
-              the DR's interface to the LAN (8 octet in total). Similarly, for
-              an OSPFv3 "Pseudonode", this contains 4 octet Router-ID of the DR
-              followed by 4 octet interface identifier of the DR's interface to
-              the LAN (8 octet in total). The TLV size in combination with
-              protocol identifier enables the decoder to determine the type of
-              the node.
+              of the designated router (DR) followed by any 4 octet value. 
+              (8 octet in total). Similarly, for an OSPFv3 "Pseudonode", this 
+              contains 4 octet Router-ID of the DR followed by 4 octet interface 
+              identifier of the DR's interface to the LAN (8 octet in total). 
+              The TLV size in combination with protocol identifier enables the 
+              decoder to determine the type of the node.
               </t>
 
 <!--HG> shall we add a note what to do when a violation is detected ?
@@ -1140,26 +1139,6 @@ just proceed with the advertised length field ? -->
             <ttcol align="center">IS-IS TLV/Sub-TLV</ttcol>
             <ttcol align="left">Defined in:</ttcol>
 
-            <c>1028</c>
-            <c>IPv4 Router-ID of Local Node</c>
-            <c>134/---</c>
-            <c><xref target="RFC5305"></xref>/4.3</c>
-
-            <c>1029</c>
-            <c>IPv6 Router-ID of Local Node</c>
-            <c>140/---</c>
-            <c><xref target="RFC6119"></xref>/4.1</c>
-
-            <c>1030</c>
-            <c>IPv4 Router-ID of Remote Node</c>
-            <c>134/---</c>
-            <c><xref target="RFC5305"></xref>/4.3</c>
-
-            <c>1031</c>
-            <c>IPv6 Router-ID of Remote Node</c>
-            <c>140/---</c>
-            <c><xref target="RFC6119"></xref>/4.1</c>
-
             <c>1088</c>
             <c>Administrative group (color)</c>
             <c>22/3</c>
@@ -1215,16 +1194,6 @@ just proceed with the advertised length field ? -->
             <c>---</c>
             <c><xref target="LINKNAME"></xref></c>
           </texttable>
-          <section anchor="aux_routerid_link" title="IPv4/IPv6 Router-ID">
-            <t>The local/remote IPv4/IPv6 Router-ID TLVs are used to describe
-            auxiliary Router-IDs that the IGP might be using, e.g., for TE
-            purposes. All auxiliary Router-IDs of both the local and the remote
-            node MUST be included in the link attribute of each link NLRI. If
-            there are more than one auxiliary Router-ID of a given type, then
-            multiple TLVs are used to encode them.
-            </t>
-          </section>
-
           <section anchor="MPLSPROTOTLV" title="MPLS Protocol Mask TLV">
             <t>The MPLS Protocol TLV carries a bit mask describing which MPLS
             signaling protocols are enabled. The length of this TLV is 1. The
