@@ -1183,7 +1183,7 @@ just proceed with the advertised length field ? -->
             <c>1092</c>
             <c>TE Default Metric</c>
             <c>22/18</c>
-            <c><xref target="RFC5305"></xref>/3.7</c>
+            <c><xref target="TEDEFAULTMETTLV"></xref>/</c>
 
             <c>1093</c>
             <c>Link Protection Type</c>
@@ -1196,9 +1196,9 @@ just proceed with the advertised length field ? -->
             <c><xref target="MPLSPROTOTLV"></xref></c>
 
             <c>1095</c>
-            <c>Metric</c>
+            <c>IGP Metric</c>
             <c>---</c>
-            <c><xref target="METTLV"></xref></c>
+            <c><xref target="IGPMETTLV"></xref></c>
 
             <c>1096</c>
             <c>Shared Risk Link Group</c>
@@ -1265,7 +1265,28 @@ just proceed with the advertised length field ? -->
             </texttable>
           </section>
 
-          <section anchor="METTLV" title="Metric TLV">
+          <section anchor="TEDEFAULTMETTLV" title="TE Default Metric TLV">
+            <t>The TE Default Metric TLV carries the TE-metric for this link.
+	    The length of this TLV is fixed at 4 octets. If a source protocol
+	    (e.g. IS-IS) does not support a Metric width of 32 bits then the high
+	    order octet MUST be set to zero. 
+            </t>
+
+            <figure anchor="TEDEFAULTMET" title="TE Default Metric TLV format">
+              <artwork>
+   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |              Type             |             Length            | 
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |                    TE Default Link Metric                     |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+	          </artwork>
+            </figure>
+          </section>
+
+
+          <section anchor="IGPMETTLV" title="IGP Metric TLV">
             <t>The IGP Metric TLV carries the metric for this link.  The length
             of this TLV is variable, depending on the metric width of the
             underlying protocol.  IS-IS small metrics have a length of 1 octet
@@ -2072,7 +2093,7 @@ just proceed with the advertised length field ? -->
         <c>1092</c>
         <c>TE Default Metric</c>
         <c>22/18</c>
-        <c><xref target="RFC5305"></xref>/3.7</c>
+        <c><xref target="TEDEFAULTMETTLV"></xref></c>
 
         <c>1093</c>
         <c>Link Protection Type</c>
@@ -2085,9 +2106,9 @@ just proceed with the advertised length field ? -->
         <c><xref target="MPLSPROTOTLV"></xref></c>
 
         <c>1095</c>
-        <c>Metric</c>
+        <c>IGP Metric</c>
         <c>---</c>
-        <c><xref target="METTLV"></xref></c>
+        <c><xref target="IGPMETTLV"></xref></c>
 
         <c>1096</c>
         <c>Shared Risk Link Group</c>
