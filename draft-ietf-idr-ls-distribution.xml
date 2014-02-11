@@ -813,6 +813,28 @@ just proceed with the advertised length field ? -->
             <c>---</c>
             <c><xref target="MT-ID"/></c>
           </texttable>
+
+	  <t>The information about a link present in the LSA/LSP
+	  originated by the local node of the link determines the set
+	  of TLVs in the Link Descriptor of the link.
+          <list style="hanging">
+	    <t> If interface and neighbor addresses, either IPv4 or
+	    IPv6, are present, then the IP address TLVs are included
+	    in the link descriptor, but not the link local/remote
+	    Identifier TLV. The link local/remote identifiers MAY be
+	    included in the link attribute.
+	    </t> 
+	    <t>If interface and neighbor addresses are not present and
+	    the link local/remote identifiers are present, then the
+	    link local/remote Identifier TLV is included in link
+	    descriptor.
+	    </t>
+	    <t> The Multi-Topology Identifier TLV is included in link
+	    descriptor if that information is present.
+	    </t>
+	  </list>
+	  </t>  
+
         </section>
 
         <section anchor="PREFIXDESC" title="Prefix Descriptors">
@@ -1159,6 +1181,11 @@ just proceed with the advertised length field ? -->
             <c>IPv6 Router-ID of Remote Node</c>
             <c>140/---</c>
             <c><xref target="RFC6119"></xref>/4.1</c>
+
+            <c>1032</c>
+            <c>Link Local/Remote Identifiers</c>
+            <c>22/4</c>
+            <c><xref target="RFC5307"></xref>/1.1</c>
 
             <c>1088</c>
             <c>Administrative group (color)</c>
@@ -2068,7 +2095,12 @@ just proceed with the advertised length field ? -->
         <c>140/---</c>
         <c><xref target="RFC6119"></xref>/4.1</c>
 
-       <!-- Link  Attribute TLVs -->
+        <c>1032</c>
+        <c>Link Local/Remote Identifiers</c>
+        <c>22/4</c>
+        <c><xref target="RFC5307"></xref>/1.1</c>
+
+        <!-- Link  Attribute TLVs -->
 
         <c>1088</c>
         <c>Administrative group (color)</c>
