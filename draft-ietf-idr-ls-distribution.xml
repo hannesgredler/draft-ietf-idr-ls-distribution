@@ -1015,7 +1015,7 @@ just proceed with the advertised length field ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |O|T|E|A| Reserved|  
+  |O|T|E|B| Reserved|  
   +-+-+-+-+-+-+-+-+-+
 	      </artwork>
             </figure>
@@ -1040,7 +1040,7 @@ just proceed with the advertised length field ? -->
               <c>External Bit</c>
               <c><xref target="RFC2328"></xref></c>
 
-              <c>'A'</c>
+              <c>'B'</c>
               <c>ABR Bit</c>
               <c><xref target="RFC2328"></xref></c>
               
