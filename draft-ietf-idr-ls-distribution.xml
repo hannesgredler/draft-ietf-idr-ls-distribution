@@ -1593,7 +1593,8 @@ just proceed with the advertised length field ? -->
           </section>
 
           <section anchor="ospf_fwd_addr" title="OSPF Forwarding Address TLV">
-            <t>OSPF Forwarding Address TLV <xref target="RFC2328"></xref>
+            <t>OSPF Forwarding Address TLV <xref target="RFC2328"></xref> and 
+	    <xref target="RFC5340"></xref>
             carries the OSPF forwarding address as known in the original OSPF
             advertisement. Forwarding address can be either IPv4 or IPv6.</t>
 
@@ -2327,6 +2328,7 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5305.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5226.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5307.xml"?>
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5340.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5890.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6119.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6286.xml"?>
