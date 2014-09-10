@@ -652,7 +652,7 @@
               <c>4</c>
 
               <c>514</c>
-              <c>Area-ID</c>
+              <c>OSPF Area-ID</c>
               <c>4</c>
 
               <c>515</c>
@@ -1719,6 +1719,64 @@ just proceed with the advertised length field ? -->
         </figure>
       </section>
 
+      <section title="Router-ID Anchoring Example: OSPF Pseudonode">
+        <t>Encoding of a broadcast LAN in OSPF provides a good example of how
+        Router-IDs and local Interface IPs are encoded. Consider <xref
+        target="OSPFPseudonodes"></xref>. This represents a Broadcast LAN
+        between a pair of routers. The "real" (=non pseudonode) routers have
+        both an IPv4 Router-ID and an Area Identifier. The pseudonode does have
+        an IPv4 Router-ID, an IPv4 interface Address (for
+	disambiguation) and an OSPF Area. Node1 is the DIS for the
+	LAN, hence its local IP address 10.1.1.1 is used both as the
+	Router-ID and Interface IP for the Pseudonode keys.
+	Two unidirectional links (Node1, Pseudonode 1) and
+	(Pseudonode1, Node2) are being generated.</t>
+
+        <t>The link NRLI of (Node1, Pseudonode1) is encoded as follows:
+
+	<list style="symbols">
+	  <t>Local Node Descriptor
+	  <list style="hanging">
+	    <t>TLV #515: IGP Router ID: 11.11.11.11</t>
+	    <t>TLV #514: OSPF Area-ID: ID:0.0.0.0</t>
+	  </list></t>
+	  <t>Remote Node Descriptor
+	  <list style="hanging">
+	    <t>TLV #515: IGP Router ID: 10.1.1.1:10.1.1.1</t>
+	    <t>TLV #514: OSPF Area-ID: ID:0.0.0.0</t>
+	  </list></t>
+	</list>
+	</t>
+
+        <t>The link NRLI of (Pseudonode1, Node2) is encoded as follows:
+
+	<list style="symbols">
+	  <t>Local Node Descriptor
+	  <list style="hanging">
+	    <t>TLV #515: IGP Router ID: 10.1.1.1:10.1.1.1</t>
+	    <t>TLV #514: OSPF Area-ID: ID:0.0.0.0</t>
+	  </list></t>
+	  <t>Remote Node Descriptor
+	  <list style="hanging">
+	    <t>TLV #515: IGP Router ID: 33.33.33.34</t>
+	    <t>TLV #514: OSPF Area-ID: ID:0.0.0.0</t>
+	  </list></t>
+	</list>
+	</t>
+
+        <figure anchor="OSPFPseudonodes" title="OSPF Pseudonodes">
+          <artwork>
+  +-----------------+    +-----------------+    +-----------------+
+  |      Node1      |    |   Pseudonode1   |    |      Node2      |
+  |   11.11.11.11   |---&gt;|     10.1.1.1    |---&gt;|  33.33.33.34    |
+  |                 |    |     10.1.1.1    |    |                 |
+  |      Area 0     |    |      Area 0     |    |      Area 0     |
+  +-----------------+    +-----------------+    +-----------------+
+          </artwork>
+        </figure>
+      </section>
+
+
       <section title="Router-ID Anchoring Example: OSPFv2 to IS-IS Migration">
         <t>Graceful migration from one IGP to another requires coordinated
         operation of both protocols during the migration period.  Such a
@@ -1737,7 +1795,7 @@ just proceed with the advertised length field ? -->
         the local and remote node descriptors, respectively.  The IS-IS link
         NLRI for the link is encoded with the ISO-ID of nodes A and B in the
         local and remote node descriptors, respectively. In addition, the BGP-LS
-        attribute of the IS-IS link NLRI contains the the TLV type 1028
+        attribute of the IS-IS link NLRI contains the TLV type 1028
         containing the IPv4 Router-ID of node A; TLV type 1030 containing the
         IPv4 Router-ID of node B and TLV type 1031 containing the IPv6 Router-ID
         of node B. In this case, by using IPv4 Router-ID, the link (A, B) can be
@@ -2056,7 +2114,7 @@ just proceed with the advertised length field ? -->
         <c><xref target="node_desc_tlvs"></xref></c>
 
         <c>514</c>
-        <c>Area ID</c>
+        <c>OSPF Area ID</c>
         <c>---</c>
         <c><xref target="node_desc_tlvs"></xref></c>
 
