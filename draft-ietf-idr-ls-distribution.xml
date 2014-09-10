@@ -325,6 +325,13 @@
       that carries link, node and prefix properties and attributes, such as the
       link and prefix metric or auxiliary Router-IDs of nodes, etc.</t>
 
+      <t>It is desired to keep the dependencies on the protocol source
+      of this attributes to a minimum and represent any content in an IGP
+      neutral way, such that applications which do want to learn
+      about a Link-state topology do not need to know about any OSPF
+      or IS-IS protocol specifics.
+      </t>
+
       <section anchor="TLV-section" title="TLV Format">
         <t>Information in the new Link-State NLRIs and attributes is encoded in
         Type/Length/Value triplets. The TLV format is shown in <xref
@@ -489,14 +496,17 @@
           <t>Protocol-ID = 2: IS-IS Level 2, The NLRI information has been
           sourced by IS-IS Level 2</t>
           
-          <t>Protocol-ID = 3: OSPF, The NLRI information has been sourced by
-          OSPF</t>
+          <t>Protocol-ID = 3: OSPFv2, The NLRI information has been sourced
+          by OSPFv2</t>
           
           <t>Protocol-ID = 4: Direct, The NLRI information has been sourced
           from local interface state</t>
 
           <t>Protocol-ID = 5: Static, The NLRI information has been sourced
           by static configuration</t>
+
+          <t>Protocol-ID = 6: OSPFv3, The NLRI information has been sourced
+          by OSPFv3</t>
         </list>
         </t>
 
@@ -2262,6 +2272,7 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5890.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6119.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6286.xml"?>
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6549.xml"?>
     </references>
 
     <references title="Informative References">
@@ -2276,7 +2287,6 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5152.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5693.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5706.xml"?>
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6549.xml"?>
     </references>
   </back>
 </rfc>
