@@ -1682,7 +1682,10 @@ just proceed with the advertised length field ? -->
         </t>
 
         <t>The BGP Next Hop attribute is used by each BGP-LS speaker to validate
-        the NLRI it receives. However, this specification doesn't mandate any
+        the NLRI it receives. In case identical NLRIs are sourced
+	by multiple originators the BGP next hop attribute is used to tie-break
+	as per the standard BGP path decision process.
+	This specification doesn't mandate any
         rule regarding the re-write of the BGP Next Hop attribute.</t>
       </section>
 
