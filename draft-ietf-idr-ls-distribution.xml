@@ -94,7 +94,7 @@
       called upon to perform computations based on the network topology and
       current state of the connections within the network, including traffic
       engineering information. This is information typically distributed by IGP
-      routing protocols within the network</t>
+      routing protocols within the network.</t>
 
       <t>This document describes a mechanism by which links state and traffic
       engineering information can be collected from networks and shared with
@@ -189,7 +189,7 @@
       POP. Abstracted topology can also be a mix of physical and virtual nodes
       and physical and virtual links. Furthermore, the BGP Speaker can apply
       policy to determine when information is updated to the consumer so that
-      there is reduction of information flow form the network to the
+      there is reduction of information flow from the network to the
       consumers. Mechanisms through which topologies can be aggregated or
       virtualized are outside the scope of this document</t>
     </section>
@@ -208,12 +208,12 @@
           control and algorithms, and coordination of computation across the
           whole area.</t>
 
-          <t>If a router wants to compute a MPLS-TE path across IGP areas its
-          own TED lacks visibility of the complete topology. That means that the
+          <t>If a router wants to compute a MPLS-TE path across IGP areas, then its
+	  own TED lacks visibility of the complete topology. That means that the
           router cannot determine the end-to-end path, and cannot even select
           the right exit router (Area Border Router - ABR) for an optimal
           path. This is an issue for large-scale networks that need to segment
-          their core networks into distinct areas, but which still want to take
+          their core networks into distinct areas, but still want to take
           advantage of MPLS-TE.</t>
         </list></t>
 
@@ -355,9 +355,9 @@
         (thus a TLV with no value portion would have a length of zero). The TLV
         is not padded to four-octet alignment. Unrecognized types are preserved
         and propagated. In order to compare NLRIs with unknown TLVs all TLVs
-        MUST be ordered in ascending order. If there are more TLVs of the same
+        MUST be ordered in ascending order by TLV Type. If there are more TLVs of the same
         type, then the TLVs MUST be ordered in ascending order of the TLV value
-        within the set of TLVs with the same type.  All TLVs that are not
+        within the TLVs with the same type.  All TLVs that are not
         specified as mandatory are considered optional.
         </t>
       </section>
@@ -415,7 +415,7 @@
 
         <t>The 'Total NLRI Length' field contains the cumulative
         length, in octets, of rest of the NLRI not including the NLRI
-        Type field or itself. For VPN applications it also includes
+        Type field or itself. For VPN applications, it also includes
         the length of the Route Distinguisher.</t>
 
         <texttable anchor="NLRI-TYPES" title="NLRI Types">
@@ -593,7 +593,7 @@
             in place.</t>
 
             <t>In section <xref target="node_desc_tlvs"></xref> a set of
-            sub-TLVs is described, which allows to specify a flexible key for
+            sub-TLVs is described, which allows specification of a flexible key for
             any given Node/Link information such that global uniqueness of the
             NLRI is ensured.
 	    </t>
@@ -700,19 +700,19 @@
               
               <t hangText="IGP Router ID:">opaque value. This is a mandatory
               TLV.  For an IS-IS non-Pseudonode, this contains 6 octet ISO
-              node-ID (ISO system-ID). For an IS-IS Pseudonode corresponding to
-              a LAN, this contains 6 octet ISO node-ID of the "Designated
-              Intermediate System" (DIS) followed by one octet nonzero PSN
-              identifier (7 octet in total).  For an OSPFv2 or OSPFv3
-              non-"Pseudonode", this contains 4 octet Router-ID.  For an OSPFv2
-              "Pseudonode" representing a LAN, this contains 4 octet Router-ID
-              of the designated router (DR) followed by 4 octet IPv4 address of
-              the DR's interface to the LAN (8 octet in total). Similarly, for
-              an OSPFv3 "Pseudonode", this contains 4 octet Router-ID of the DR
-              followed by 4 octet interface identifier of the DR's interface to
-              the LAN (8 octet in total). The TLV size in combination with
-              protocol identifier enables the decoder to determine the type of
-              the node.
+              node-ID (ISO system-ID).
+              For an IS-IS Pseudonode corresponding to a LAN, this contains 6
+              octet ISO node-ID of the "Designated Intermediate System" (DIS)
+	      followed by one octet nonzero PSN identifier (7 octets in total).
+	      For an OSPFv2 or OSPFv3 non-"Pseudonode", this contains the 4 octet
+              Router-ID.  For an OSPFv2 "Pseudonode" representing a LAN, this
+	      contains the 4 octet Router-ID of the designated router (DR) followed
+	      by the 4 octet IPv4 address of the DR's interface to the LAN (8 octets
+	      in total). Similarly, for an OSPFv3 "Pseudonode", this contains the 4
+	      octet Router-ID of the DR followed by the 4 octet interface identifier
+	      of the DR's interface to the LAN (8 octets in total). The TLV size
+              in combination with protocol identifier enables the decoder to
+              determine the type of the node.
               </t>
 
 <!--HG> shall we add a note what to do when a violation is detected ?
@@ -721,8 +721,8 @@ accidentially encoding just 4 cotets of ID space, should we raise hell or
 just proceed with the advertised length field ? -->
 
               <t>There can be at most one instance of each sub-TLV type present
-              in any Node Descriptor. The TLV ordering within a Node descriptor
-              MUST be kept in order of increasing numeric value of type. This
+              in any Node Descriptor. The sub-TLVs within a Node descriptor
+              MUST be arranged in ascending order by sub-TLV type. This
               needs to be done in order to compare NLRIs, even when an
               implementation encounters an unknown sub-TLV. Using stable sorting
               an implementation can do binary comparison of NLRIs and hence
@@ -766,14 +766,14 @@ just proceed with the advertised length field ? -->
             carried in the TLV.</t>
 
             <t>The MT-ID TLV MAY be present in a Link Descriptor, a Prefix
-            Descriptor, or in the BGP-LS attribute of a node NLRI. In Link or
-            Prefix Descriptor, only one MT-ID TLV containing only the MT-ID of
-            the topology where the link or the prefix belongs is
+            Descriptor, or in the BGP-LS attribute of a node NLRI. In a Link or
+            Prefix Descriptor, only a single MT-ID TLV containing the MT-ID of
+            the topology where the link or the prefix is reachable is
 	    allowed. In case one wants to advertise multiple
 	    topologies for a given Link  Descriptor or Prefix Descriptor, multiple NRLIs
 	    need to be generated where each NLRI contains an unique MT-ID.
 	    In the BGP-LS attribute of a node NLRI, one MT-ID TLV containing the array
-            of MT-IDs of all topologies where the node belongs can be present.
+            of MT-IDs of all topologies where the node is reachable is allowed.
             </t>
             
           </section>
@@ -786,8 +786,8 @@ just proceed with the advertised length field ? -->
           identify a link among multiple parallel links between a pair of anchor
           routers. A link described by the Link descriptor TLVs actually is a
           "half-link", a unidirectional representation of a logical link. In
-          order to fully describe a single logical link two originating routers
-          advertise a half-link each, i.e. two link NLRIs are advertised for a
+          order to fully describe a single logical link, two originating routers
+          advertise a half-link each, i.e., two link NLRIs are advertised for a
           given point-to-point link.</t>
 
           <t>The format and semantics of the 'value' fields in most 'Link
@@ -851,7 +851,7 @@ just proceed with the advertised length field ? -->
 	    </t> 
 	    <t>If interface and neighbor addresses are not present and
 	    the link local/remote identifiers are present, then the
-	    link local/remote Identifier TLV is included in link
+	    link local/remote Identifier TLV is included in the link
 	    descriptor.
 	    </t>
 	    <t> The Multi-Topology Identifier TLV is included in link
@@ -895,8 +895,8 @@ just proceed with the advertised length field ? -->
             <t> OSPF Route Type is an optional TLV that MAY be present in Prefix
             NLRIs. It is used to identify the OSPF route-type of the prefix. It
             is used when an OSPF prefix is advertised in the OSPF domain with
-            multiple different route-types. The Route Type TLV allows to
-            discriminate these advertisements. The format of the OSPF Route Type
+            multiple route-types. The Route Type TLV allows to
+            discrimination of these advertisements. The format of the OSPF Route Type
             TLV is shown in the following figure.</t>
 
             <figure anchor="ROUTETYPETLV" title="OSPF Route Type TLV Format">
@@ -931,7 +931,7 @@ just proceed with the advertised length field ? -->
             <t>The IP Reachability Information is a mandatory TLV that contains
             one IP address prefix (IPv4 or IPv6) originally advertised in the
             IGP topology. Its purpose is to glue a particular BGP service NLRI
-            vi virtue of its BGP next-hop to a given Node in the LSDB. A router
+            by virtue of its BGP next-hop to a given Node in the LSDB. A router
             SHOULD advertise an IP Prefix NLRI for each of its BGP Next-hops.
             The format of the IP Reachability Information TLV is shown in the
             following figure:</t>
@@ -1069,9 +1069,9 @@ just proceed with the advertised length field ? -->
                    title="IS-IS Area Identifier TLV">
             <t>An IS-IS node can be part of one or more IS-IS areas. Each of
             these area addresses is carried in the IS-IS Area Identifier TLV. If
-            more than one Area Addresses are present, multiple TLVs are used to
+            multiple Area Addresses are present, multiple TLVs are used to
             encode them. The IS-IS Area Identifier TLV may be present in the
-            BGP-LS attribute only with the Link-State Node NLRI.
+            BGP-LS attribute only when advertised in the Link-State Node NLRI.
             </t>
 
             <figure anchor="ISISAREAIDTLV" title="IS-IS Area Identifier TLV Format">
@@ -1104,7 +1104,7 @@ just proceed with the advertised length field ? -->
             achieve the correct format for transmission or display.
             </t>
 
-            <t>Altough <xref target="RFC5301"/> is a IS-IS specific extension,
+            <t>Altough <xref target="RFC5301"/> is an IS-IS specific extension,
             usage of the Node Name TLV is possible for all protocols. How a
             router derives and injects node names for e.g. OSPF nodes, is
             outside of the scope of this document.
@@ -1351,7 +1351,7 @@ just proceed with the advertised length field ? -->
             <t>The IGP Metric TLV carries the metric for this link.  The length
             of this TLV is variable, depending on the metric width of the
             underlying protocol.  IS-IS small metrics have a length of 1 octet
-            (the two most significant bits are ignored).  OSPF metrics have a
+            (the two most significant bits are ignored).  OSPF link metrics have a
             length of two octects.  IS-IS wide-metrics have a length of three
             octets.
             </t>
@@ -1674,9 +1674,9 @@ just proceed with the advertised length field ? -->
 
       <section title="BGP Next Hop Information">
         <t>BGP link-state information for both IPv4 and IPv6 networks can be
-        carried over either an IPv4 BGP session, or an IPv6 BGP session. If IPv4
+        carried over either an IPv4 BGP session, or an IPv6 BGP session. If an IPv4
         BGP session is used, then the next hop in the MP_REACH_NLRI SHOULD be an
-        IPv4 address. Similarly, if IPv6 BGP session is used, then the next hop
+        IPv4 address. Similarly, if an IPv6 BGP session is used, then the next hop
         in the MP_REACH_NLRI SHOULD be an IPv6 address.  Usually the next hop
         will be set to the local end-point address of the BGP session. The next
         hop address MUST be encoded as described in <xref
@@ -2044,7 +2044,7 @@ just proceed with the advertised length field ? -->
 
           <t>An implementation SHOULD allow the operator to specify the
           maximum rate at which Link-State NLRIs will be advertised/withdrawn
-          from neighbors</t>
+          from neighbors.</t>
 
           <t>An implementation SHOULD allow the operator to specify the
           maximum number of Link-State NLRIs stored in router's RIB.</t>
@@ -2058,7 +2058,7 @@ just proceed with the advertised length field ? -->
 
           <t>An implementation SHOULD allow the operator to configure a pair
           of ASN and <xref target="BGP-LS-IDENTIFIER">BGP-LS
-	  identifier</xref> per flooding set the node participates in.</t>
+	  identifier</xref> per flooding set in which the node participates.</t>
         </section>
 	
         <section anchor="Accounting-Management" title="Accounting Management">
@@ -2329,7 +2329,7 @@ just proceed with the advertised length field ? -->
       configuration of Consumer peers at the BGP Speaker.</t>
 
       <t>An operator SHOULD employ a mechanism to protect a BGP Speaker against
-      DDOS attacks from Consumers.  The principal attack a consumer may apply is
+      DDoS attacks from Consumers.  The principal attack a consumer may apply is
       to attempt to start multiple sessions either sequentially or
       simultaneously.  Protection can be applied by imposing rate limits.</t>
 
