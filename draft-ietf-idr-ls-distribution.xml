@@ -565,7 +565,8 @@
           (e.g. ISO) where no global registry exists, or worse, Router-IDs have
           been allocated following private-IP <xref target="RFC1918">RFC
           1918</xref> allocation. We use Autonomous System (AS) Number and
-          BGP-LS Identifier in order to disambiguate the Router-IDs, as
+          <xref target="BGP-LS-IDENTIFIER">BGP-LS Identifier</xref>
+	  in order to disambiguate the Router-IDs, as
           described in <xref target="gbl_uniqueness"></xref>.</t>
 
           <section anchor="gbl_uniqueness"
@@ -679,7 +680,7 @@
               <t hangText="Autonomous System:">opaque value (32 Bit AS
               Number)</t>
 	      
-              <t hangText="BGP-LS Identifier:">opaque value (32 Bit ID). In
+              <t anchor="BGP-LS-IDENTIFIER" hangText="BGP-LS Identifier:">opaque value (32 Bit ID). In
               conjunction with ASN, uniquely identifies the BGP-LS domain. The
               combination of ASN and BGP-LS ID MUST be globally unique. All
               BGP-LS speakers within an IGP flooding-set (set of IGP nodes
@@ -2044,8 +2045,8 @@ just proceed with the advertised length field ? -->
           instance ID.</t>
 
           <t>An implementation SHOULD allow the operator to configure a pair
-          of ASN and BGP-LS identifier per flooding set the node participates
-          in.</t>
+          of ASN and <xref target="BGP-LS-IDENTIFIER">BGP-LS
+	  identifier</xref> per flooding set the node participates in.</t>
         </section>
 	
         <section anchor="Accounting-Management" title="Accounting Management">
