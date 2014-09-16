@@ -418,13 +418,23 @@
         Type field or itself. For VPN applications it also includes
         the length of the Route Distinguisher.</t>
 
-        <t>The 'NLRI Type' field can contain one of the following values:
-        <list style="hanging">
-            <t>Type = 1: Node NLRI</t>
-            <t>Type = 2: Link NLRI</t>
-            <t>Type = 3: IPv4 Topology Prefix NLRI</t>
-            <t>Type = 4: IPv6 Topology Prefix NLRI</t>
-          </list></t>
+        <texttable anchor="NLRI-TYPES" title="NLRI Types">
+          <ttcol align="center">Type</ttcol>
+          <ttcol align="left">NLRI Type</ttcol>
+          
+          <c>1</c>
+          <c>Node NLRI</c>
+
+          <c>2</c>
+          <c>Link NLRI</c>
+
+          <c>3</c>
+          <c>IPv4 Topology Prefix NLRI</c>
+
+          <c>4</c>
+          <c>IPv6 Topology Prefix NLRI</c>
+        </texttable>
+
 
         <t>The Node NLRI (NLRI Type = 1) is shown in the following figure.</t>
 
@@ -485,30 +495,31 @@
           </artwork>
         </figure>
 
-        <t>The 'Protocol-ID' field can contain one of the following values:
-        <list style="hanging">
-          <t>Protocol-ID = 0: Unknown, The source of NLRI information could
-          not be determined</t>
-          
-          <t>Protocol-ID = 1: IS-IS Level 1, The NLRI information has been
-          sourced by IS-IS Level 1</t>
-          
-          <t>Protocol-ID = 2: IS-IS Level 2, The NLRI information has been
-          sourced by IS-IS Level 2</t>
-          
-          <t>Protocol-ID = 3: OSPFv2, The NLRI information has been sourced
-          by OSPFv2</t>
-          
-          <t>Protocol-ID = 4: Direct, The NLRI information has been sourced
-          from local interface state</t>
+        <t>The 'Protocol-ID' field can contain one of the following values:</t>
+        
+        <texttable anchor="PROTOCOL-IDS" title="Protocol Identifiers">
+          <ttcol align="center">Protocol-ID</ttcol>
+          <ttcol align="left">NLRI information source protocol</ttcol>
 
-          <t>Protocol-ID = 5: Static, The NLRI information has been sourced
-          by static configuration</t>
+	  <c>1</c>
+          <c>IS-IS Level 1</c>
+          
+	  <c>2</c>
+          <c>IS-IS Level 2</c>
+          
+	  <c>3</c>
+          <c>OSPFv2</c>
+          
+	  <c>4</c>
+          <c>Direct</c>
 
-          <t>Protocol-ID = 6: OSPFv3, The NLRI information has been sourced
-          by OSPFv3</t>
-        </list>
-        </t>
+	  <c>5</c>
+	  <c>Static configuration</c>
+
+	  <c>6</c>
+          <c>OSPFv3</c>
+
+        </texttable>
 
         <t>Both OSPF and IS-IS may run multiple routing protocol instances over
         the same link. See <xref target="RFC6822"></xref> and <xref
@@ -1900,7 +1911,29 @@ just proceed with the advertised length field ? -->
       71.</t>
 
       <t>This document requests a code point from the BGP Path Attributes
-      registry.</t>
+      registry. As per early allocation procedure this is Path
+      Attribute 29.</t>
+
+      <t>This document requests creation of a new registry for BGP-LS
+      NLRI-Types. Value 0 is reserved. The registry will be initialized as
+      shown in <xref target="NLRI-TYPES"/>. Allocations within the registry
+      will require documentation of the proposed use of the allocated value and
+      approval by the Designated Expert assigned by the IESG (see <xref
+      target="RFC5226"></xref>).</t>
+
+      <t>This document requests creation of a new registry for BGP-LS
+      Protocol-IDs. Value 0 is reserved. The registry will be initialized as
+      shown in <xref target="PROTOCOL-IDS"/>. Allocations within the registry
+      will require documentation of the proposed use of the allocated value and
+      approval by the Designated Expert assigned by the IESG (see <xref
+      target="RFC5226"></xref>).</t>
+
+      <t>This document requests creation of a new registry for BGP-LS
+      Well-known Instance-IDs. The registry will be initialized as
+      shown in <xref target="well_known_instances"/>. Allocations within the registry
+      will require documentation of the proposed use of the allocated value and
+      approval by the Designated Expert assigned by the IESG (see <xref
+      target="RFC5226"></xref>).</t>
 
       <t>This document requests creation of a new registry for node anchor, link
       descriptor and link attribute TLVs. Values 0-255 are reserved.  Values
