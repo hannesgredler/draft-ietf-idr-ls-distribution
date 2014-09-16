@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="10" month="September" year="2014"/>
+    <date day="16" month="September" year="2014"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -1528,7 +1528,7 @@ just proceed with the advertised length field ? -->
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |              Type             |             Length            | 
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |D|   Reserved  |
+  |D|N|L|P| Resvd.|
   +-+-+-+-+-+-+-+-+
   </artwork>
             </figure>
@@ -1545,6 +1545,18 @@ just proceed with the advertised length field ? -->
               <c>'D'</c>
               <c>IS-IS Up/Down Bit</c>
               <c><xref target="RFC5305"></xref></c>
+
+	      <c>'N'</c>
+	      <c>OSPF "no unicast" Bit</c>
+              <c><xref target="RFC5340"></xref></c>
+
+	      <c>'L'</c>
+	      <c>OSPF "local address" Bit</c>
+              <c><xref target="RFC5340"></xref></c>
+
+	      <c>'P'</c>
+	      <c>OSPF "propagate NSSA" Bit</c>
+              <c><xref target="RFC5340"></xref></c>
 
               <c>Reserved</c>
               <c>Reserved for future use.</c>
@@ -2372,7 +2384,7 @@ just proceed with the advertised length field ? -->
   <back>
     <references title="Normative References">
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5130.xml"?>
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6822"?>
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6822.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2545.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1195.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1918.xml"?>
