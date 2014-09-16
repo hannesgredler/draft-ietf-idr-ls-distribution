@@ -1283,6 +1283,15 @@ just proceed with the advertised length field ? -->
             value is a bit array of 8 flags, where each bit represents an MPLS
             Protocol capability.</t>
 
+	    <t>Generation of the MPLS Protocol Mask TLV is only valid for
+	    originators which have local link insight, like for example
+	    Protocol-IDs 'Static' or 'Direct' as per
+	    <xref target="PROTOCOL-IDS"></xref>. The MPLS Protocol
+	    Mask TLV MUST NOT be included in NLRIs with protocol-IDs
+	    'IS-IS L1', 'IS-IS L2', 'OSPFv2' or 'OSPFv3' as per
+	    <xref target="PROTOCOL-IDS"></xref>. 
+	    </t>
+
             <figure anchor="MPLSPROTO" title="MPLS Protocol TLV">
               <artwork>
    0                   1                   2                   3
