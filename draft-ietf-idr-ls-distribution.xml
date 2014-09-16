@@ -756,8 +756,11 @@ just proceed with the advertised length field ? -->
             <t>The MT-ID TLV MAY be present in a Link Descriptor, a Prefix
             Descriptor, or in the BGP-LS attribute of a node NLRI. In Link or
             Prefix Descriptor, only one MT-ID TLV containing only the MT-ID of
-            the topology where the link or the prefix belongs is allowed. In the
-            BGP-LS attribute of a node NLRI, one MT-ID TLV containing the array
+            the topology where the link or the prefix belongs is
+	    allowed. In case one wants to advertise multiple
+	    topologies for a given Link  Descriptor or Prefix Descriptor, multiple NRLIs
+	    need to be generated where each NLRI contains an unique MT-ID.
+	    In the BGP-LS attribute of a node NLRI, one MT-ID TLV containing the array
             of MT-IDs of all topologies where the node belongs can be present.
             </t>
             
