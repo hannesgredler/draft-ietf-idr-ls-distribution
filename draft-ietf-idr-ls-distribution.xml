@@ -1135,13 +1135,17 @@ just proceed with the advertised length field ? -->
           </section>
 
           <section anchor="OPAQUENODE" title="Opaque Node Attribute TLV">
-            <t>The Opaque Node attribute TLV is an envelope that transparently
+            <t>The Opaque Node Attribute TLV is an envelope that transparently
             carries optional node attribute TLVs advertised by a router. An
             originating router shall use this TLV for encoding information
             specific to the protocol advertised in the NLRI header Protocol-ID
             field or new protocol extensions to the protocol as advertised in
             the NLRI header Protocol-ID field for which there is no protocol
-            neutral representation in the BGP link-state NLRI.
+	    neutral representation in the BGP link-state NLRI.
+
+	    The primary use of the Opaque Node Attribute TLV is to bridge the
+	    document lag between e.g. a new IGP Link-state attribute being
+	    defined and the 'protocol-neutral' BGP-LS extensions being published.
 
             A router for example could use this extension in order to advertise
             the native protocols node attribute TLVs, such as the OSPF Router
@@ -1404,13 +1408,17 @@ just proceed with the advertised length field ? -->
 
           <section anchor="OPAQUELINK"
                    title="Opaque Link Attribute TLV">
-            <t>The Opaque link attribute TLV is an envelope that transparently
+            <t>The Opaque link Attribute TLV is an envelope that transparently
             carries optional link atrribute TLVs advertised by a router. An
             originating router shall use this TLV for encoding information
             specific to the protocol advertised in the NLRI header Protocol-ID
             field or new protocol extensions to the protocol as advertised in
             the NLRI header Protocol-ID field for which there is no protocol
             neutral representation in the BGP link-state NLRI.
+
+	    The primary use of the Opaque Link Attribute TLV is to bridge the
+	    document lag between e.g. a new IGP Link-state attribute being
+	    defined and the 'protocol-neutral' BGP-LS extensions being published.
             </t>
 
             <figure anchor="OPAQUELINKTLV"
@@ -1642,13 +1650,17 @@ just proceed with the advertised length field ? -->
           <section anchor="OPAQUEPREFIX"
                    title="Opaque Prefix Attribute TLV">
 
-            <t>The Opaque Prefix attribute TLV is an envelope that transparently
+            <t>The Opaque Prefix Attribute TLV is an envelope that transparently
             carries optional prefix attribute TLVs advertised by a router. An
             originating router shall use this TLV for encoding information
             specific to the protocol advertised in the NLRI header Protocol-ID
             field or new protocol extensions to the protocol as advertised in
             the NLRI header Protocol-ID field for which there is no protocol
             neutral representation in the BGP link-state NLRI.
+
+	    The primary use of the Opaque Prefix Attribute TLV is to bridge the
+	    document lag between e.g. a new IGP Link-state attribute being
+	    defined and the 'protocol-neutral' BGP-LS extensions being published.
             </t>
 
             <t>The format of the TLV is as follows:</t>
