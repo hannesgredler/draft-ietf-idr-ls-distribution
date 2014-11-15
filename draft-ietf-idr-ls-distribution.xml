@@ -281,7 +281,7 @@
         specifies allocation of prefixes to Partition Identifiers (PIDs), and a
         Cost Map that specifies the cost between PIDs listed in the Network
         Map. For more details, see <xref
-        target="I-D.ietf-alto-protocol"></xref>.</t>
+        target="RFC7285"></xref>.</t>
 
         <t>ALTO abstract network topologies can be auto-generated from the
         physical topology of the underlying network. The generation would
@@ -363,19 +363,19 @@
       </section>
 
       <section title="The Link-State NLRI">
-        <t>The MP_REACH and MP_UNREACH attributes are BGP's containers for
+        <t>The MP_REACH_NLRI and MP_UNREACH_NLRI attributes are BGP's containers for
         carrying opaque information. Each Link-State NLRI describes either a
         node, a link or a prefix.</t>
 
         <t>All non-VPN link, node and prefix information SHALL be encoded using
         AFI 16388 / SAFI 71. VPN link, node and prefix information SHALL be
-        encoded using AFI 16388 / SAFI 128.</t>
+        encoded using AFI 16388 / SAFI TBD.</t>
 
         <t>In order for two BGP speakers to exchange Link-State NLRI, they MUST
         use BGP Capabilities Advertisement to ensure that they both are capable
         of properly processing such NLRI. This is done as specified in <xref
         target="RFC4760"></xref>, by using capability code 1 (multi-protocol
-        BGP), with an AFI 16388 / SAFI 71 and AFI 16388 / SAFI 128 for the VPN
+        BGP), with an AFI 16388 / SAFI 71 and AFI 16388 / SAFI TBD for the VPN
         flavor.</t>
 
         <t>The format of the Link-State NLRI is shown in the following
@@ -395,7 +395,7 @@
   </artwork>
         </figure>
 
-        <figure anchor="LSVPNSAFI" title="Link-State VPN AFI 16388 / SAFI 128 NLRI Format">
+        <figure anchor="LSVPNSAFI" title="Link-State VPN AFI 16388 / SAFI TBD NLRI Format">
           <artwork>
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -1944,8 +1944,11 @@ just proceed with the advertised length field ? -->
       Numbers. As per early allocation procedure this is AFI 16388.</t>
 
       <t>This document requests a code point from the registry of Subsequent
-      Address Family Numbers. As per early allocation procedure this is SAFI
+      Address Family Numbers named 'BGP-LS'. As per early allocation procedure this is SAFI
       71.</t>
+
+      <t>This document requests a code point from the registry of Subsequent
+      Address Family Numbers named 'BGP-LS-VPN'.</t>
 
       <t>This document requests a code point from the BGP Path Attributes
       registry. As per early allocation procedure this is Path
@@ -2409,7 +2412,7 @@ just proceed with the advertised length field ? -->
     </references>
 
     <references title="Informative References">
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-alto-protocol-27.xml"?>
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7285.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5392.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5316.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4272.xml"?>
