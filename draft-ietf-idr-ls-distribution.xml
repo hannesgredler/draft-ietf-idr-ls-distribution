@@ -1122,7 +1122,7 @@ just proceed with the advertised length field ? -->
             achieve the correct format for transmission or display.
             </t>
 
-            <t>Altough <xref target="RFC5301"/> is an IS-IS specific extension,
+            <t>Although <xref target="RFC5301"/> is an IS-IS specific extension,
             usage of the Node Name TLV is possible for all protocols. How a
             router derives and injects node names for e.g. OSPF nodes, is
             outside of the scope of this document.
@@ -1372,7 +1372,7 @@ just proceed with the advertised length field ? -->
             of this TLV is variable, depending on the metric width of the
             underlying protocol.  IS-IS small metrics have a length of 1 octet
             (the two most significant bits are ignored).  OSPF link metrics have a
-            length of two octects.  IS-IS wide-metrics have a length of three
+            length of two octets.  IS-IS wide-metrics have a length of three
             octets.
             </t>
 
@@ -1425,7 +1425,7 @@ just proceed with the advertised length field ? -->
           <section anchor="OPAQUELINK"
                    title="Opaque Link Attribute TLV">
             <t>The Opaque link Attribute TLV is an envelope that transparently
-            carries optional link atrribute TLVs advertised by a router. An
+            carries optional link attribute TLVs advertised by a router. An
             originating router shall use this TLV for encoding information
             specific to the protocol advertised in the NLRI header Protocol-ID
             field or new protocol extensions to the protocol as advertised in
@@ -1993,7 +1993,7 @@ just proceed with the advertised length field ? -->
 
       <t>This document requests creation of a new registry for node anchor, link
       descriptor and link attribute TLVs. Values 0-255 are reserved.  Values
-      256-65535 will be used for Codepoints. The registry will be initialized as
+      256-65535 will be used for code points. The registry will be initialized as
       shown in <xref target="BGPLSCODEPOINTS"/>. Allocations within the registry
       will require documentation of the proposed use of the allocated value and
       approval by the Designated Expert assigned by the IESG (see <xref
@@ -2162,7 +2162,7 @@ just proceed with the advertised length field ? -->
       this document.</t>
       
       <texttable anchor="BGPLSCODEPOINTS"
-                 title="Summary Table of TLV/Sub-TLV Codepoints">
+                 title="Summary Table of TLV/Sub-TLV code points">
         <ttcol align="center">TLV Code Point</ttcol>
         <ttcol align="left">Description</ttcol>
         <ttcol align="center">IS-IS TLV/ Sub-TLV</ttcol>
