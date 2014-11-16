@@ -532,11 +532,11 @@
 	the protocol-ID 'Static configuration' SHOULD be used.
 	</t>
 
-        <t>Both OSPF and IS-IS may run multiple routing protocol instances over
+        <t>Both OSPF and IS-IS MAY run multiple routing protocol instances over
         the same link. See <xref target="RFC6822"></xref> and <xref
         target="RFC6549"></xref>. These instances define independent "routing
         universes". The 64-Bit 'Identifier' field is used to identify the
-        "routing universe" where the NLRI belongs.  The NLRIs representing IGP
+        "routing universe" where the NLRI belongs.  The NLRIs representing Link-state
         objects (nodes, links or prefixes) from the same routing universe MUST
         have the same 'Identifier' value; NLRIs with different 'Identifier'
         values MUST be considered to be from different routing universes.  Table
@@ -555,6 +555,13 @@
           <c>L1 optical topology</c>
         </texttable>
         
+	<t>If a given Protocol does not support multiple routing
+	universes then it SHOULD set the 'Identifier' field according to
+	<xref target="well_known_instances"></xref>. However an
+	implementation MAY make the 'Identifier' configurable,
+	for a given protocol.
+	</t>
+
         <t>
           Each Node Descriptor and Link Descriptor consists of one or more TLVs
           described in the following sections.
