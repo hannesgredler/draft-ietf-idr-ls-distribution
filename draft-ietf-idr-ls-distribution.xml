@@ -2072,11 +2072,36 @@ just proceed with the advertised length field ? -->
 
       <section anchor="Management-Considerations"
                title="Management Considerations">
-        <section anchor="Management-Information"
-                 title="Management Information"></section>
+
+        <section anchor="Management-Information" title="Management Information">
+	  <t>This document does not mandate any new MIB information or NETCONF/YANG models.
+	  </t>
+	</section>
 
         <section anchor="Fault-Management" title="Fault Management">
-          <t>TBD.</t>
+          <t>If an implementation of BGP-LS detects a malformed
+	  attribute, then it SHOULD use the 'Attribute Discard' action
+	  as per <xref target="I-D.ietf-idr-error-handling"></xref>
+	  Section 2.
+	  </t>
+
+	  <t>An implementation of BGP-LS MUST perform the following
+	  syntactic checks for determining if a message is malformed.
+
+	  <list style="symbols">
+            <t>Does the sum of all TLVs found in the BGP LS
+	    attribute correspond to the BGP LS path attribute length ?</t>
+            <t>Does the sum of all TLVs found in the BGP MP_REACH_NLRI
+	    attribute correspond to the BGP MP_REACH_NLRI length ?</t>
+            <t>Does the sum of all TLVs found in the BGP MP_UNREACH_NLRI
+	    attribute correspond to the BGP MP_UNREACH_NLRI length ?</t>
+            <t>Does the sum of all TLVs found in a Node-, Link or
+	    Prefix Descriptor NLRI attribute correspond to the
+	    Node-, Link- or Prefix Descriptors 'Total NLRI Length' field ?</t>
+	    <t>Does any fixed length TLV correspond to the TLV Length
+	    field in this document ?</t>
+	  </list>
+	  </t>
         </section>
 
         <section anchor="Configuration-Management"
@@ -2434,6 +2459,7 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5152.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5693.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5706.xml"?>
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-error-handling-16.xml"?>
     </references>
   </back>
 </rfc>
