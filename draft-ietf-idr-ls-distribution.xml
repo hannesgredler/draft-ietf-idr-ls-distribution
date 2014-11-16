@@ -521,6 +521,17 @@
 
         </texttable>
 
+	<t>The 'Direct' and 'Static' protocol types SHOULD be used
+	when BGP-LS is sourcing local information. For all
+	information, derived from other protocols the corresponding
+	protocol-ID MUST be used. If BGP-LS has got
+	direct access to interface information and wants to
+	advertise a local link then the protocol-ID
+	'Direct' SHOULD be used. For modeling virtual links,
+	like described in <xref target="LINKPATHAGGREGATION"/>
+	the protocol-ID 'Static configuration' SHOULD be used.
+	</t>
+
         <t>Both OSPF and IS-IS may run multiple routing protocol instances over
         the same link. See <xref target="RFC6822"></xref> and <xref
         target="RFC6549"></xref>. These instances define independent "routing
@@ -1856,7 +1867,7 @@ just proceed with the advertised length field ? -->
       </section>
     </section>
 
-    <section title="Link to Path Aggregation">
+    <section anchor="LINKPATHAGGREGATION" title="Link to Path Aggregation">
       <t>Distribution of all links available in the global Internet is certainly
       possible, however not desirable from a scaling and privacy point of
       view. Therefore an implementation may support link to path
