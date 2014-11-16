@@ -1311,7 +1311,10 @@ just proceed with the advertised length field ? -->
 	    <xref target="PROTOCOL-IDS"></xref>. The MPLS Protocol
 	    Mask TLV MUST NOT be included in NLRIs with protocol-IDs
 	    'IS-IS L1', 'IS-IS L2', 'OSPFv2' or 'OSPFv3' as per
-	    <xref target="PROTOCOL-IDS"></xref>. 
+	    <xref target="PROTOCOL-IDS"></xref>.
+	    The 'Protocol Mask' TLV MUST NOT be generated in NLRIs with a
+	    protocol-ID of 'IS-IS Level 1', 'IS-IS Level 2',
+	    'OSPFv2' or 'OSPFv3'.
 	    </t>
 
             <figure anchor="MPLSPROTO" title="MPLS Protocol TLV">
@@ -1796,7 +1799,7 @@ just proceed with the advertised length field ? -->
         between a pair of routers. The "real" (=non pseudonode) routers have
         both an IPv4 Router-ID and an Area Identifier. The pseudonode does have
         an IPv4 Router-ID, an IPv4 interface Address (for
-	disambiguation) and an OSPF Area. Node1 is the DIS for the
+	disambiguation) and an OSPF Area. Node1 is the DR for the
 	LAN, hence its local IP address 10.1.1.1 is used both as the
 	Router-ID and Interface IP for the Pseudonode keys.
 	Two unidirectional links (Node1, Pseudonode 1) and
