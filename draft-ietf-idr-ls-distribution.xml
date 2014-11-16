@@ -1229,11 +1229,6 @@ just proceed with the advertised length field ? -->
             <c>140/---</c>
             <c><xref target="RFC6119"></xref>/4.1</c>
 
-            <c>1032</c>
-            <c>Link Local/Remote Identifiers</c>
-            <c>22/4</c>
-            <c><xref target="RFC5307"></xref>/1.1</c>
-
             <c>1088</c>
             <c>Administrative group (color)</c>
             <c>22/3</c>
@@ -2263,11 +2258,6 @@ just proceed with the advertised length field ? -->
         <c>IPv6 Router-ID of Remote Node</c>
         <c>140/---</c>
         <c><xref target="RFC6119"></xref>/4.1</c>
-
-        <c>1032</c>
-        <c>Link Local/Remote Identifiers</c>
-        <c>22/4</c>
-        <c><xref target="RFC5307"></xref>/1.1</c>
 
         <!-- Link  Attribute TLVs -->
 
