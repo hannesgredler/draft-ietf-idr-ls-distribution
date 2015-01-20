@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-idr-ls-distribution-07"
+<rfc category="std" docName="draft-ietf-idr-ls-distribution-08"
      ipr="trust200902">
   <front>
     <title abbrev="Link-State Info Distribution using BGP">North-Bound
@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="15" month="November" year="2014"/>
+    <date day="20" month="January" year="2015"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -1303,13 +1303,10 @@ just proceed with the advertised length field ? -->
 	    <t>Generation of the MPLS Protocol Mask TLV is only valid for
 	    originators which have local link insight, like for example
 	    Protocol-IDs 'Static' or 'Direct' as per
-	    <xref target="PROTOCOL-IDS"></xref>. The MPLS Protocol
-	    Mask TLV MUST NOT be included in NLRIs with protocol-IDs
+	    <xref target="PROTOCOL-IDS"></xref>. The 'MPLS Protocol
+	    Mask' TLV MUST NOT be included in NLRIs with protocol-IDs
 	    'IS-IS L1', 'IS-IS L2', 'OSPFv2' or 'OSPFv3' as per
 	    <xref target="PROTOCOL-IDS"></xref>.
-	    The 'Protocol Mask' TLV MUST NOT be generated in NLRIs with a
-	    protocol-ID of 'IS-IS Level 1', 'IS-IS Level 2',
-	    'OSPFv2' or 'OSPFv3'.
 	    </t>
 
             <figure anchor="MPLSPROTO" title="MPLS Protocol TLV">
@@ -2459,7 +2456,7 @@ just proceed with the advertised length field ? -->
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5152.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5693.xml"?>
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5706.xml"?>
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-error-handling-16.xml"?>
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-error-handling-18.xml"?>
     </references>
   </back>
 </rfc>
