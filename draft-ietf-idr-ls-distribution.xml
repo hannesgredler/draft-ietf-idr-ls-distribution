@@ -1113,6 +1113,7 @@ just proceed with the advertised length field ? -->
             can be the FQDN for the router, it can be a subset of the FQDN, or
             it can be any string operators want to use for the router. The use
             of FQDN or a subset of it is strongly RECOMMENDED.
+	    The maximum length of the 'Node Name TLV' is 255 octets.
             </t>
 
             <t>The Value field is encoded in 7-bit ASCII.  If a user-interface
@@ -1455,6 +1456,7 @@ just proceed with the advertised length field ? -->
             FQDN for the link, it can be a subset of the FQDN, or it can be any
             string operators want to use for the link. The use of FQDN or a
             subset of it is strongly RECOMMENDED.
+	    The maximum length of the 'Link Name TLV' is 255 octets.
             </t>
 
             <t>The Value field is encoded in 7-bit ASCII.  If a user-interface
