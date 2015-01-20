@@ -549,10 +549,10 @@
           <ttcol align="left">Routing Universe</ttcol>
           
           <c>0</c>
-          <c>L3 packet topology</c>
+          <c>Default Layer 3 Routing topology</c>
           
-          <c>1</c>
-          <c>L1 optical topology</c>
+          <c>1-31</c>
+          <c>Reserved for future use</c>
         </texttable>
         
 	<t>If a given Protocol does not support multiple routing
