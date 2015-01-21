@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-idr-ls-distribution-08"
+<rfc category="std" docName="draft-ietf-idr-ls-distribution-09"
      ipr="trust200902">
   <front>
     <title abbrev="Link-State Info Distribution using BGP">North-Bound
@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="20" month="January" year="2015"/>
+    <date day="21" month="January" year="2015"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
