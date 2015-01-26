@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-idr-ls-distribution-09"
+<rfc category="std" docName="draft-ietf-idr-ls-distribution-10"
      ipr="trust200902">
   <front>
     <title abbrev="Link-State Info Distribution using BGP">North-Bound
@@ -85,7 +85,7 @@
       </address>
     </author>
 
-    <date day="21" month="January" year="2015"/>
+    <date day="26" month="January" year="2015"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -552,7 +552,7 @@
           <c>Default Layer 3 Routing topology</c>
           
           <c>1-31</c>
-          <c>Reserved for future use</c>
+          <c>Reserved</c>
         </texttable>
         
 	<t>If a given Protocol does not support multiple routing
@@ -1963,30 +1963,42 @@ just proceed with the advertised length field ? -->
       71.</t>
 
       <t>This document requests a code point from the registry of Subsequent
-      Address Family Numbers named 'BGP-LS-VPN'.</t>
+      Address Family Numbers named 'BGP-LS-VPN'. The SAFI assignment
+      does NOT need to be out of the range 1-63.</t>
 
       <t>This document requests a code point from the BGP Path Attributes
       registry. As per early allocation procedure this is Path
       Attribute 29.</t>
 
+      <t>All the following Registries are BGP-LS specific and
+      shall be acessible under the following URL:
+      "http://www.iana.org/assignments/bgp-ls-parameters"
+      Title "Border Gateway Protocol - Link State (BGP-LS) Parameters"
+      </t>
+
       <t>This document requests creation of a new registry for BGP-LS
-      NLRI-Types. Value 0 is reserved. The registry will be initialized as
+      NLRI-Types. Value 0 is reserved. The maximum value is 65535.
+      The registry will be initialized as
       shown in <xref target="NLRI-TYPES"/>. Allocations within the registry
-      will require documentation of the proposed use of the allocated value and
+      will require documentation of the proposed use of the allocated
+      value (=Specification required) and
       approval by the Designated Expert assigned by the IESG (see <xref
       target="RFC5226"></xref>).</t>
 
       <t>This document requests creation of a new registry for BGP-LS
-      Protocol-IDs. Value 0 is reserved. The registry will be initialized as
+      Protocol-IDs. Value 0 is reserved. The maximum value is 255.
+      The registry will be initialized as
       shown in <xref target="PROTOCOL-IDS"/>. Allocations within the registry
-      will require documentation of the proposed use of the allocated value and
+      will require documentation of the proposed use of the allocated
+      value (=Specification required) and
       approval by the Designated Expert assigned by the IESG (see <xref
       target="RFC5226"></xref>).</t>
 
       <t>This document requests creation of a new registry for BGP-LS
       Well-known Instance-IDs. The registry will be initialized as
       shown in <xref target="well_known_instances"/>. Allocations within the registry
-      will require documentation of the proposed use of the allocated value and
+      will require documentation of the proposed use of the allocated
+      value (=Specification required) and
       approval by the Designated Expert assigned by the IESG (see <xref
       target="RFC5226"></xref>).</t>
 
@@ -1994,7 +2006,8 @@ just proceed with the advertised length field ? -->
       descriptor and link attribute TLVs. Values 0-255 are reserved.  Values
       256-65535 will be used for code points. The registry will be initialized as
       shown in <xref target="BGPLSCODEPOINTS"/>. Allocations within the registry
-      will require documentation of the proposed use of the allocated value and
+      will require documentation of the proposed use of the allocated
+      value (=Specification required) and
       approval by the Designated Expert assigned by the IESG (see <xref
       target="RFC5226"></xref>).</t>
 
