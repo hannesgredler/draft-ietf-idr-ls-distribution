@@ -10,13 +10,13 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-idr-ls-distribution-10"
+<rfc category="std" docName="draft-ietf-idr-ls-distribution-11"
      ipr="trust200902">
   <front>
     <title abbrev="Link-State Info Distribution using BGP">North-Bound
     Distribution of Link-State and TE Information using BGP</title>
 
-    <author fullname="Hannes Gredler" initials="H." surname="Gredler">
+    <author fullname="Hannes Gredler" initials="H." surname="Gredler" role="editor">
       <organization>Juniper Networks, Inc.</organization>
       <address>
         <postal>
@@ -72,20 +72,12 @@
     </author>
 
     <author fullname="Saikat Ray" initials="S." surname="Ray">
-      <organization>Cisco Systems, Inc.</organization>
       <address>
-        <postal>
-          <street>170, West Tasman Drive</street>
-          <city>San Jose</city>
-          <region>CA</region>
-          <code>95134</code>
-          <country>US</country>
-        </postal>
-        <email>sairay@cisco.com</email>
+        <email>raysaikat@gmail.com</email>
       </address>
     </author>
 
-    <date day="26" month="January" year="2015"/>
+    <date day="5" month="May" year="2015"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -1835,7 +1827,7 @@ just proceed with the advertised length field ? -->
           <artwork>
   +-----------------+    +-----------------+    +-----------------+
   |      Node1      |    |   Pseudonode1   |    |      Node2      |
-  |   11.11.11.11   |---&gt;|     10.1.1.1    |---&gt;|  33.33.33.34    |
+  |   11.11.11.11   |---&gt;|   11.11.11.11   |---&gt;|  33.33.33.34    |
   |                 |    |     10.1.1.1    |    |                 |
   |      Area 0     |    |      Area 0     |    |      Area 0     |
   +-----------------+    +-----------------+    +-----------------+
