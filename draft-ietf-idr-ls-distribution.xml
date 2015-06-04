@@ -77,7 +77,7 @@
       </address>
     </author>
 
-    <date day="5" month="May" year="2015"/>
+    <date day="4" month="June" year="2015"/>
 
     <workgroup>Inter-Domain Routing</workgroup>
 
@@ -1949,16 +1949,16 @@ just proceed with the advertised length field ? -->
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
-      <t>This document requests a code point from the registry of Address Family
-      Numbers. As per early allocation procedure this is AFI 16388.</t>
+      <t>This document is the reference for Address Family Number 16388, 'BGP-LS'.
+      </t>
 
-      <t>This document requests a code point from the registry of Subsequent
-      Address Family Numbers named 'BGP-LS'. As per early allocation procedure this is SAFI
-      71.</t>
+      <t>This document requests code point 71 from the registry of
+      Subsequent Address Family Numbers named 'BGP-LS'.</t>
 
       <t>This document requests a code point from the registry of Subsequent
       Address Family Numbers named 'BGP-LS-VPN'. The SAFI assignment
-      does NOT need to be out of the range 1-63.</t>
+      does NOT need to be out of the range 1-63 and MAY come out of
+      the "First Come First Served" range 128-240.</t>
 
       <t>This document requests a code point from the BGP Path Attributes
       registry. As per early allocation procedure this is Path
