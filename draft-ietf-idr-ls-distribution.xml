@@ -1102,7 +1102,8 @@ just proceed with the advertised length field ? -->
             <t>The Node Name TLV is optional. Its structure and encoding has
             been borrowed from <xref target="RFC5301"/>.  The value field
             identifies the symbolic name of the router node.  This symbolic name
-            can be the FQDN for the router, it can be a subset of the FQDN, or
+            can be the FQDN for the router, it can be a subset of the
+	    FQDN (e.g. a hostname), or
             it can be any string operators want to use for the router. The use
             of FQDN or a subset of it is strongly RECOMMENDED.
 	    The maximum length of the 'Node Name TLV' is 255 octets.
@@ -1337,7 +1338,8 @@ just proceed with the advertised length field ? -->
           </section>
 
           <section anchor="TEDEFAULTMETTLV" title="TE Default Metric TLV">
-            <t>The TE Default Metric TLV carries the TE-metric for this link.
+            <t>The TE Default Metric TLV carries the Traffic
+	    engineering metric for this link.
 	    The length of this TLV is fixed at 4 octets. If a source protocol
 	    (e.g. IS-IS) does not support a Metric width of 32 bits then the high
 	    order octet MUST be set to zero. 
@@ -2086,7 +2088,7 @@ just proceed with the advertised length field ? -->
 
         <section anchor="Fault-Management" title="Fault Management">
           <t>If an implementation of BGP-LS detects a malformed
-	  attribute, then it SHOULD use the 'Attribute Discard' action
+	  attribute, then it MUST use the 'Attribute Discard' action
 	  as per <xref target="I-D.ietf-idr-error-handling"></xref>
 	  Section 2.
 	  </t>
