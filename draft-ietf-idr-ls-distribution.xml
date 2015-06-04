@@ -530,8 +530,8 @@
         universes". The 64-Bit 'Identifier' field is used to identify the
         "routing universe" where the NLRI belongs.  The NLRIs representing Link-state
         objects (nodes, links or prefixes) from the same routing universe MUST
-        have the same 'Identifier' value; NLRIs with different 'Identifier'
-        values MUST be considered to be from different routing universes.  Table
+        have the same 'Identifier' value. NLRIs with different 'Identifier'
+        values MUST be considered to be from different routing universes.
         <xref target="well_known_instances"></xref> lists the 'Identifier'
         values that are defined as well-known in this draft.
         </t>
@@ -566,7 +566,7 @@
           auxiliary Router-IDs, mainly for traffic engineering purposes. For
           example, IS-IS may have one or more IPv4 and IPv6 TE Router-IDs <xref
           target="RFC5305"/>, <xref target="RFC6119"/>. These auxiliary
-          Router-IDs MUST be included in the link attribute described in Section
+          Router-IDs MUST be included in the link attribute described in
           <xref target="link_attribute"/>.
 	  </t>
 
@@ -586,10 +586,10 @@
             database collected by all BGP-LS speakers that talk to each other).
             This can be expressed through the following two requirements:</t>
 
-            <t>(A) The same node must not be represented by two keys (otherwise
+            <t>(A) The same node MUST NOT be represented by two keys (otherwise
             one node will look like two nodes).</t>
 
-            <t>(B) Two different nodes must not be represented by the same key
+            <t>(B) Two different nodes MUST NOT be represented by the same key
             (otherwise, two nodes will look like one node).</t>
 
             <t>We define an "IGP domain" to be the set of nodes (hence, by
@@ -602,7 +602,7 @@
             AS. During IGP transitions it may happen that two redundant IGPs are
             in place.</t>
 
-            <t>In section <xref target="node_desc_tlvs"></xref> a set of
+            <t>In <xref target="node_desc_tlvs"></xref> a set of
             sub-TLVs is described, which allows specification of a flexible key for
             any given Node/Link information such that global uniqueness of the
             NLRI is ensured.
@@ -1192,7 +1192,7 @@ just proceed with the advertised length field ? -->
           originally defined for IS-IS, the TLVs can carry data sourced either
           by IS-IS or OSPF.</t>
 
-          <t>The following 'Link Attribute' TLVs are are valid in the
+          <t>The following 'Link Attribute' TLVs are valid in the
           LINK_STATE attribute:</t>
 
           <texttable anchor="table_link_attribute_tlv"
@@ -1294,7 +1294,7 @@ just proceed with the advertised length field ? -->
             Protocol capability.</t>
 
 	    <t>Generation of the MPLS Protocol Mask TLV is only valid for
-	    originators which have local link insight, like for example
+	    originators that have local link insight, like for example
 	    Protocol-IDs 'Static' or 'Direct' as per
 	    <xref target="PROTOCOL-IDS"></xref>. The 'MPLS Protocol
 	    Mask' TLV MUST NOT be included in NLRIs with protocol-IDs
@@ -1528,7 +1528,7 @@ just proceed with the advertised length field ? -->
 
           <section anchor="IGPFLAGS" title="IGP Flags TLV">
             <t>IGP Flags TLV contains IS-IS and OSPF flags and bits originally
-            assigned tothe prefix. The IGP Flags TLV is encoded as follows:</t>
+            assigned to the prefix. The IGP Flags TLV is encoded as follows:</t>
 
             <figure anchor="IGPFLAGSTLV" title="IGP Flag TLV format">
               <artwork>
@@ -1965,7 +1965,7 @@ just proceed with the advertised length field ? -->
       Attribute 29.</t>
 
       <t>All the following Registries are BGP-LS specific and
-      shall be acessible under the following URL:
+      shall be accessible under the following URL:
       "http://www.iana.org/assignments/bgp-ls-parameters"
       Title "Border Gateway Protocol - Link State (BGP-LS) Parameters"
       </t>
@@ -2423,7 +2423,7 @@ just proceed with the advertised length field ? -->
       Yeung, Murtuza Lightwala, John Scudder, Kaliraj Vairavakkalai, Les
       Ginsberg, Liem Nguyen, Manish Bhardwaj, Matt Miller, Mike Shand, Peter Psenak, Rex
       Fernando, Richard Woundy, Steven Luong, Tamas Mondal, Waqas Alam, Vipin
-      Kumar, Naiming Shen, Balaji Rajagopalan and Yakov Rekhter for their comments.</t>
+      Kumar, Naiming Shen, Carlos Pignataro, Balaji Rajagopalan and Yakov Rekhter for their comments.</t>
     </section>
   </middle>
 
