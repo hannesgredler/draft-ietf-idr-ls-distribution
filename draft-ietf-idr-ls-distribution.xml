@@ -2156,10 +2156,11 @@ just proceed with the advertised length field ? -->
         </section>
 
         <section anchor="Security-Management" title="Security Management">
-          <t>An operator SHOULD define ACLs to limit inbound updates as
+          <t>An operator SHOULD define an import policy to limit inbound updates as
           follows: <list style="symbols">
           <t>Drop all updates from Consumer peers</t>
           </list></t>
+	  <t>An implementation MUST have means to limit inbound updates.</t>
         </section>
       </section>
     </section>
@@ -2390,7 +2391,7 @@ just proceed with the advertised length field ? -->
       for analysis of security issues for BGP.</t>
 
       <t>In the context of the BGP peerings associated with this document, a BGP
-      Speaker SHOULD NOT accept updates from a Consumer peer.  That is, a
+      Speaker MUST NOT accept updates from a Consumer peer.  That is, a
       participating BGP Speaker, should be aware of the nature of its
       relationships for link state relationships and should protect itself from
       peers sending updates that either represent erroneous information feedback
@@ -2420,7 +2421,7 @@ just proceed with the advertised length field ? -->
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>We would like to thank Nischal Sheth, Alia Atlas, David Ward, Derek
       Yeung, Murtuza Lightwala, John Scudder, Kaliraj Vairavakkalai, Les
-      Ginsberg, Liem Nguyen, Manish Bhardwaj, Mike Shand, Peter Psenak, Rex
+      Ginsberg, Liem Nguyen, Manish Bhardwaj, Matt Miller, Mike Shand, Peter Psenak, Rex
       Fernando, Richard Woundy, Steven Luong, Tamas Mondal, Waqas Alam, Vipin
       Kumar, Naiming Shen, Balaji Rajagopalan and Yakov Rekhter for their comments.</t>
     </section>
